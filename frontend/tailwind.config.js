@@ -8,11 +8,11 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#00446c',
-          container: '#0a5c8e',
+          DEFAULT: '#0A5C8E',
+          container: '#1E88E5',
         },
         secondary: {
-          DEFAULT: '#0060a8',
+          DEFAULT: '#1E88E5',
           container: '#47a1ff',
         },
         surface: {
