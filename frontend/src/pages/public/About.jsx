@@ -1,130 +1,193 @@
 import React from 'react';
-import { Target, Eye, Heart, ShieldCheck, Zap, Globe, Users, Headphones, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Target, Eye, Heart, ShieldCheck, Zap, Globe, Users, Headphones, CheckCircle2, MapPin } from 'lucide-react';
 
-const ValueCard = ({ icon: Icon, title, description }) => (
-  <div className="p-10 rounded-stitch bg-surface-container-lowest shadow-long-fall hover:-translate-y-2 transition-all duration-500 flex flex-col items-start gap-6">
-    <div className="w-14 h-14 rounded-full bg-primary/5 text-primary flex items-center justify-center">
-      <Icon size={24} className="stroke-[2.5px]" />
+const ValueCard = ({ icon: Icon, title, description, index }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
+    className="p-12 glass-card hover:-translate-y-3 transition-all duration-700 flex flex-col items-start gap-8"
+  >
+    <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/20">
+      <Icon size={28} className="stroke-[1.5px]" />
     </div>
-    <div>
-      <h3 className="text-xl font-black mb-3 tracking-tight uppercase italic">{title}</h3>
-      <p className="text-sm font-medium leading-relaxed text-on-surface/50">
+    <div className="space-y-4">
+      <h3 className="text-2xl font-black mb-3 tracking-tighter uppercase italic leading-none">{title}</h3>
+      <p className="text-editorial text-sm">
         {description}
       </p>
     </div>
-  </div>
+  </motion.div>
 );
 
 const About = () => {
   return (
-    <div className="bg-surface font-display pb-32">
-      {/* Header Section */}
-      <section className="pt-40 pb-32 px-4 text-center bg-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-primary/[0.02] -skew-y-3 origin-center saturate-200"></div>
-        <div className="max-w-4xl mx-auto relative z-10 animate-in fade-in slide-in-from-top duration-1000">
-           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-8 underline decoration-primary/10 underline-offset-8 decoration-4">Notre Histoire</h4>
-           <h1 className="text-5xl md:text-8xl font-black text-on-surface leading-[0.9] tracking-tighter uppercase italic">
-             Connecter Likasi au reste du <span className="text-primary not-italic">monde.</span>
-           </h1>
-           <p className="text-xl text-on-surface/40 max-w-2xl mx-auto font-medium leading-relaxed italic mt-10">
-             "En tant qu'acteur local majeur, NOVA+ s'engage à transformer l'accessibilité numérique dans le Haut-Katanga avec la technologie satellitaire la plus avancée."
-           </p>
+    <div className="bg-surface font-display pb-40">
+      {/* Header Section - CINEMATIC IMPACT */}
+      <section className="relative pt-60 pb-40 px-4 text-center overflow-hidden">
+        <div className="orbital-glow w-[1000px] h-[1000px] -top-1/2 left-1/2 -translate-x-1/2 opacity-20"></div>
+        
+        <div className="max-w-5xl mx-auto relative z-10 space-y-12">
+           <motion.h4 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             className="text-[10px] font-black uppercase tracking-[0.6em] text-primary"
+           >
+             Héritage & Vision
+           </motion.h4>
+           
+           <motion.h1 
+             initial={{ opacity: 0, y: 30 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
+             className="text-6xl md:text-9xl font-black text-on-surface leading-[0.85] tracking-tighter uppercase italic"
+           >
+             Connecter Likasi <br /> 
+             <span className="text-primary not-italic underline decoration-primary/10 underline-offset-8">au Futur.</span>
+           </motion.h1>
+           
+           <motion.p 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ duration: 1.5, delay: 0.8 }}
+             className="text-2xl text-on-surface/50 max-w-3xl mx-auto font-medium leading-relaxed italic"
+           >
+             "Acteur local majeur, NOVA+ redéfinit l'accessibilité dans le Katanga par l'excellence satellitaire."
+           </motion.p>
         </div>
       </section>
 
-      {/* Engagement Section */}
-      <section className="py-32 px-4 bg-surface-container-low">
+      {/* Engagement Section - TONAL LAYERING */}
+      <section className="py-40 px-4 section-alt relative">
         <div className="max-w-7xl mx-auto">
-           <div className="max-w-3xl mb-24">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-6">Notre Engagement</h4>
-              <h2 className="text-4xl md:text-6xl font-black text-on-surface leading-[0.95] tracking-tighter uppercase italic mb-8">
-                L'excellence opérationnelle au service de la région.
-              </h2>
+           <div className="grid lg:grid-cols-12 gap-20 mb-32 items-end">
+              <div className="lg:col-span-7">
+                 <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-10">Pilier Opérationnel</h4>
+                 <h2 className="text-5xl md:text-8xl font-black text-on-surface leading-[0.9] tracking-tighter uppercase italic">
+                   L'excellence satellite au service de Likasi.
+                 </h2>
+              </div>
+              <div className="lg:col-span-5 pb-4">
+                 <p className="text-editorial text-lg leading-relaxed">
+                   Nous ne fournissons pas seulement une connexion, nous bâtissons l'infrastructure vitale pour l'indépendance numérique régionale.
+                 </p>
+              </div>
            </div>
 
-           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
               <ValueCard 
+                index={0}
                 icon={ShieldCheck}
-                title="Fiabilité Absolue"
-                description="Notre infrastructure satellite LEO garantit une connexion stable même dans les zones les plus isolées de Likasi."
+                title="Fiabilité Totale"
+                description="Notre infrastructure orbitale garantit une stabilité absolue, affranchie des contraintes terrestres du Haut-Katanga."
               />
               <ValueCard 
+                index={1}
                 icon={Zap}
-                title="Innovation Continue"
-                description="Nous déployons les dernières technologies SpaceX et satellites pour offrir des débits équivalents à la fibre optique."
+                title="Débit de Pointe"
+                description="Déploiement des derniers terminaux à large bande pour offrir des performances rivalisant avec les meilleurs standards globaux."
               />
               <ValueCard 
+                index={2}
                 icon={Heart}
-                title="Ancrage Local"
-                description="Nous ne sommes pas juste un fournisseur, nous sommes vos voisins avec un support physique direct sur l'Avenue de l'Église."
+                title="Engagement Local"
+                description="Une équipe d'experts à Likasi sur l'Avenue de l'Église, assurant une réactivité et une maintenance sans compromis."
               />
            </div>
         </div>
       </section>
 
-      {/* Team / Mission Section */}
-      <section className="py-32 px-4 bg-white">
-         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-10 order-2 lg:order-1">
-               <h3 className="text-4xl font-black text-on-surface mb-6 tracking-tight uppercase italic underline decoration-primary/20 decoration-8 underline-offset-4">Notre Appréche</h3>
-               <p className="text-on-surface/60 text-lg leading-relaxed font-medium">
-                 Depuis notre lancement, nous avons compris que la connectivité n'est plus un luxe, mais un moteur de développement économique essentiel pour Likasi.
-               </p>
+      {/* Mission / Approach - ARCHITECTURAL LAYOUT */}
+      <section className="py-40 px-4 bg-white relative overflow-hidden">
+         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
+            <div className="space-y-16 order-2 lg:order-1">
+               <div className="space-y-8">
+                  <h3 className="text-5xl font-black text-on-surface tracking-tighter uppercase italic">
+                    Notre Approche <br />
+                    <span className="text-primary not-italic">Data-Driven</span>
+                  </h3>
+                  <p className="text-editorial text-lg leading-relaxed">
+                    Depuis notre implantation, nous avons compris que la connectivité est le moteur de développement essentiel pour les entreprises minières et les foyers de Likasi.
+                  </p>
+               </div>
                
-               <div className="grid grid-cols-2 gap-8">
-                  <div className="p-6 rounded-stitch bg-surface-container-low">
-                     <p className="text-4xl font-black text-primary mb-2 tracking-tighter italic">500+</p>
-                     <p className="text-[10px] font-black uppercase tracking-widest text-on-surface/30">Clients Actifs</p>
-                  </div>
-                  <div className="p-6 rounded-stitch bg-surface-container-low">
-                     <p className="text-4xl font-black text-primary mb-2 tracking-tighter italic">24/7</p>
-                     <p className="text-[10px] font-black uppercase tracking-widest text-on-surface/30">Monitoring Réseau</p>
-                  </div>
+               <div className="grid grid-cols-2 gap-10">
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="p-10 rounded-[40px] bg-primary/5 border border-primary/10 transition-all cursor-default"
+                  >
+                     <p className="text-5xl font-black text-primary mb-3 tracking-tighter italic leading-none">500+</p>
+                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-on-surface/40">Nœuds Actifs</p>
+                  </motion.div>
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="p-10 rounded-[40px] bg-primary/5 border border-primary/10 transition-all cursor-default"
+                  >
+                     <p className="text-5xl font-black text-primary mb-3 tracking-tighter italic leading-none">24/7</p>
+                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-on-surface/40">Watchtower</p>
+                  </motion.div>
                </div>
 
                <div className="space-y-6 pt-6">
                   {[
-                    "Transparence totale sur les débits réels",
-                    "Installation professionnelle certifiée",
-                    "Épanouissement technologique local"
+                    "Transparence radicale sur les débits",
+                    "Ingénierie réseau certifiée",
+                    "Développement de talents Katangais"
                   ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 group">
-                       <CheckCircle2 size={16} className="text-primary/40 group-hover:text-primary transition-all" />
-                       <span className="font-bold text-on-surface/80 group-hover:text-primary transition-colors italic uppercase tracking-tight text-xs">{item}</span>
+                    <div key={i} className="flex items-center gap-5 group">
+                       <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                          <CheckCircle2 size={14} />
+                       </div>
+                       <span className="font-bold text-on-surface/80 group-hover:text-primary transition-colors italic uppercase tracking-widest text-[11px]">{item}</span>
                     </div>
                   ))}
                </div>
             </div>
 
-            <div className="relative group order-1 lg:order-2">
-               <div className="absolute inset-0 bg-primary/5 rounded-[40px] rotate-3 -z-10 animate-pulse"></div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative order-1 lg:order-2"
+            >
+               <div className="absolute -inset-12 bg-primary/5 rounded-full blur-[100px] animate-pulse-slow"></div>
                <img 
                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1200" 
-                 alt="NOVA+ Team Likasi" 
-                 className="relative z-10 rounded-[40px] shadow-2xl object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
+                 alt="NOVA+ Infrastructure" 
+                 className="relative z-10 rounded-stitch shadow-long-fall object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-[2000ms]"
                />
-               <div className="absolute -top-10 -right-10 bg-primary w-24 h-24 rounded-full flex items-center justify-center shadow-2xl z-20 hidden md:flex hover:rotate-12 transition-all">
-                  <Globe className="text-white" size={32} />
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-primary/10 rounded-full blur-3xl -z-10"></div>
+               <div className="absolute -top-12 -right-12 glass-card p-8 z-20 hidden md:flex hover:rotate-6 transition-all">
+                  <Globe className="text-primary animate-spin" style={{ animationDuration: '20s' }} size={40} />
                </div>
-            </div>
+            </motion.div>
          </div>
       </section>
 
-      {/* Presence Locale Banner */}
-      <section className="py-24 px-4 bg-on-surface text-surface text-center overflow-hidden relative">
-         <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary rounded-full blur-[200px]"></div>
-         </div>
-         <div className="max-w-4xl mx-auto relative z-10">
-            <h2 className="text-4xl md:text-5xl font-black mb-10 tracking-tight uppercase italic underline decoration-white/20 underline-offset-8">Likasi est notre priorité.</h2>
-            <p className="text-surface/60 text-lg leading-relaxed font-medium mb-12">
-              Nous investissons massivement dans les infrastructures locales et la formation technique pour faire de Likasi un hub numérique de référence.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-12 font-black uppercase tracking-[0.3em] text-[10px]">
-               <div className="flex items-center gap-3"><MapPin size={16} /> Avenue de l'Église, Likasi</div>
-               <div className="flex items-center gap-3"><Headphones size={16} /> +243 00 000 000</div>
+      {/* Contact Banner - DARK PREMIUM */}
+      <section className="py-40 px-4">
+         <motion.div 
+           initial={{ opacity: 0, y: 50 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="max-w-6xl mx-auto rounded-[60px] bg-on-surface text-surface overflow-hidden relative p-20 md:p-32 text-center"
+         >
+            <div className="absolute inset-0 bg-noise opacity-20"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary rounded-full blur-[200px] opacity-20"></div>
+            
+            <div className="relative z-10 max-w-3xl mx-auto space-y-12">
+               <h2 className="text-5xl md:text-8xl font-black tracking-tighter uppercase italic leading-none underline decoration-primary/30 underline-offset-8 decoration-8">Likasi est <br /> notre centre.</h2>
+               <p className="text-surface/60 text-xl font-medium tracking-tight">
+                 Nous bâtissons ensemble le futur numérique du Haut-Katanga.
+               </p>
+               <div className="flex flex-col md:flex-row justify-center gap-12 font-black uppercase tracking-[0.4em] text-[10px] pt-8">
+                  <div className="flex items-center gap-3 justify-center"><MapPin size={18} className="text-primary" /> Avenue de l'Église, Likasi</div>
+                  <div className="flex items-center gap-3 justify-center"><Headphones size={18} className="text-primary" /> +243 00 000 000</div>
+               </div>
             </div>
-         </div>
+         </motion.div>
       </section>
     </div>
   );
