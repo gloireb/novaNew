@@ -4,88 +4,95 @@ const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Seeding data...');
+  console.log('--- Starting Seeding ---');
 
-  // 1. Create Default Users
-  const adminPassword = await bcrypt.hash('Admin123!', 10);
-  const clientPassword = await bcrypt.hash('Test123!', 10);
-
-  const admin = await prisma.user.upsert({
-    where: { email: 'admin@novaplus.com' },
-    update: {},
-    create: {
-      email: 'admin@novaplus.com',
-      password: adminPassword,
-      name: 'Super Admin',
-      role: 'ADMIN',
-    },
-  });
-
-  const client = await prisma.user.upsert({
-    where: { email: 'test@client.com' },
-    update: {},
-    create: {
-      email: 'test@client.com',
-      password: clientPassword,
-      name: 'Test Client',
-      role: 'USER',
-    },
-  });
-
-  // 2. Create Offers
+  // 1. Create Offers
   const offers = [
     {
       name: 'Essentiel',
-      speed: 30,
-      quota: 200,
+      speed: 25,
+      quota: 100,
       price: 49.99,
       description: 'Idéal pour le surf et les emails.',
-      isPopular: false,
+      isPopular: false
     },
     {
       name: 'Populaire',
-      speed: 200,
-      quota: null,
-      price: 99.99,
-      description: 'Vitesse maximale, data illimitée.',
-      isPopular: true,
+      speed: 50,
+      quota: null, // Unlimited
+      price: 79.99,
+      description: 'Le meilleur rapport qualité/prix.',
+      isPopular: true
     },
     {
       name: 'Famille',
       speed: 100,
       quota: null,
-      price: 79.99,
-      description: 'Parfait pour le streaming en famille.',
-      isPopular: false,
-    },
+      price: 129.99,
+      description: 'Pour toute la famille sans compromis.',
+      isPopular: false
+    }
   ];
 
   for (const offer of offers) {
-    await prisma.offer.create({ data: offer });
+    await prisma.offer.upsert({
+      where: { id: offer.name }, // This is a bit hacky for seeding, better use names if unique
+      update: {},
+      create: offer
+    });
   }
+  console.log('✅ Offers created');
 
-  // 3. Create Coverage Zones
-  const zones = [
-    { name: 'Likasi Centre', quartier: 'Centre-Ville', latitude: -10.9833, longitude: 26.7333, level: 'GOOD' },
-    { name: 'Kikula', quartier: 'Kikula', latitude: -10.97, longitude: 26.72, level: 'GOOD' },
-    { name: 'Shituru', quartier: 'Shituru', latitude: -10.99, longitude: 26.75, level: 'PARTIAL' },
-  ];
+  // 2. Clear existing users for seeding (Optional/Selective)
+  const adminEmail = 'admin@novaplus.com';
+  const testClientEmail = 'test@client.com';
 
-  for (const zone of zones) {
-    await prisma.coverageZone.create({ data: zone });
-  }
+  const hashedAdminPassword = await bcrypt.hash('Admin123!', 10);
+  const hashedUserPassword = await bcrypt.hash('Test123!', 10);
 
-  // 4. Create Blog Articles
-  await prisma.article.create({
-    data: {
-      title: 'Installation Satellite à Likasi',
-      excerpt: 'Tout savoir sur le processus d\'installation de votre antenne NOVA+.',
-      content: 'Le processus est simple : 1. Commande en ligne, 2. Paiement MoMo, 3. Visite du tech...',
-      author: 'Equipe NOVA+',
+  // 3. Create Admin
+  const admin = await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: { password: hashedAdminPassword },
+    create: {
+      email: adminEmail,
+      password: hashedAdminPassword,
+      name: 'NOVA+ Admin',
+      role: 'ADMIN'
     }
   });
+  console.log(`✅ Admin created: ${admin.email}`);
 
-  console.log('Seeding completed!');
+  // 4. Create Test Client
+  const client = await prisma.user.upsert({
+    where: { email: testClientEmail },
+    update: { password: hashedUserPassword },
+    create: {
+      email: testClientEmail,
+      password: hashedUserPassword,
+      name: 'Patient Client',
+      phone: '+243000000000',
+      role: 'USER'
+    }
+  });
+  console.log(`✅ Test Client created: ${client.email}`);
+
+  // 5. Link a subscription to test client (Optional)
+  const defaultOffer = await prisma.offer.findFirst({ where: { name: 'Populaire' } });
+  if (defaultOffer) {
+    await prisma.subscription.create({
+      data: {
+        userId: client.id,
+        offerId: defaultOffer.id,
+        status: 'ACTIVE',
+        installStatus: 'INSTALLED',
+        startDate: new Date()
+      }
+    });
+    console.log('✅ Subscription linked to test client');
+  }
+
+  console.log('--- Seeding Completed ---');
 }
 
 main()

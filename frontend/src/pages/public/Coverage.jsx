@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { MapContainer, TileLayer, Circle, Popup, Marker, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Circle, Marker, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Search, MapPin, CheckCircle2, AlertCircle, ArrowRight, Satellite, Zap, Radio, Globe, Activity } from 'lucide-react';
+import { Search, MapPin, CheckCircle2, AlertCircle, ArrowRight, Satellite, Zap, Radio, Globe, Activity, Loader2 } from 'lucide-react';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Fix for default marker icons in React-Leaflet
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -19,31 +20,11 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 const LIKASI_COORDS = [-10.9833, 26.7333];
 
-// Helper to center map
 function RecenterMap({ coords }) {
     const map = useMap();
     map.setView(coords, map.getZoom());
     return null;
 }
-
-const StatusIndicator = ({ type, label, description, active }) => {
-  const styles = {
-    TOTAL: { color: 'text-green-600', bg: 'bg-green-500', glow: 'shadow-green-500/20' },
-    PARTIELLE: { color: 'text-orange-500', bg: 'bg-orange-500', glow: 'shadow-orange-500/20' },
-    PREORDER: { color: 'text-red-500', bg: 'bg-red-500', glow: 'shadow-red-500/20' }
-  };
-  const s = styles[type];
-
-  return (
-    <div className={`p-4 rounded-stitch-sm flex items-center gap-4 transition-all ${active ? 'bg-surface-container-lowest shadow-long-fall border border-on-surface/5' : 'opacity-40 grayscale'}`}>
-       <div className={`w-3 h-3 rounded-full ${s.bg} shadow-lg ${s.glow} ${active ? 'animate-pulse' : ''}`}></div>
-       <div>
-          <p className={`text-[10px] font-black uppercase tracking-widest ${s.color}`}>{label}</p>
-          <p className="text-[9px] font-bold text-on-surface/40 uppercase tracking-tight">{description}</p>
-       </div>
-    </div>
-  );
-};
 
 const Coverage = () => {
   const [address, setAddress] = useState('');
@@ -55,127 +36,210 @@ const Coverage = () => {
     if (!address) return;
     
     setLoading(true);
+    // Simulation of API call
     setTimeout(() => {
       setLoading(false);
       setCheckResult({
-        type: address.toLowerCase().includes('église') ? 'TOTAL' : 'PARTIELLE',
-        signal: 'Extrême',
-        latency: '24ms'
+        status: 'ÉLIGIBLE',
+        zone: 'Likasi Centre',
+        latency: '22ms',
+        throughput: 'Jusqu\'à 100 Mbps'
       });
-    }, 1500);
+    }, 2000);
   };
 
   return (
-    <div className="bg-surface pb-32 font-display">
-      {/* Coverage Header */}
-      <section className="pt-40 pb-32 px-4 text-center bg-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-full h-full bg-primary/[0.02] -skew-y-3 origin-center"></div>
-        <div className="max-w-4xl mx-auto relative z-10 animate-in fade-in slide-in-from-top duration-1000">
-           <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-8">Disponibilité</h4>
-           <h1 className="text-5xl md:text-8xl font-black text-on-surface leading-[0.9] tracking-tighter uppercase italic">
-             Vérifiez votre éligibilité <span className="text-primary not-italic underline decoration-primary/20 underline-offset-8 decoration-4">NOVA+.</span>
-           </h1>
-           <p className="text-xl text-on-surface/40 max-w-2xl mx-auto font-medium leading-relaxed italic mt-10">
-             "Où que vous soyez à Likasi, nous apportons l'orbite à votre porte. Entrez votre position pour commencer."
+    <div className="bg-surface-container-low min-h-screen pb-40">
+      {/* Header - Atmospheric mastery */}
+      <section className="relative pt-48 pb-32 px-6 text-center overflow-hidden">
+        <div className="max-w-4xl mx-auto space-y-8 relative z-10">
+           <motion.h4 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             className="text-[10px] font-black uppercase tracking-[0.6em] text-primary"
+           >
+             Vérification Orbitale
+           </motion.h4>
+           <motion.h1 
+             initial={{ opacity: 0, y: 30 }}
+             animate={{ opacity: 1, y: 0 }}
+             className="text-6xl md:text-[7rem] font-display font-black text-on-surface leading-[0.85] tracking-tighter uppercase italic"
+           >
+             Couverture <br /> <span className="text-primary not-italic">Sans Limites.</span>
+           </motion.h1>
+           <p className="text-on-surface/40 text-lg md:text-xl font-body italic max-w-xl mx-auto leading-relaxed">
+             "Où que vous soyez dans le Katanga, nous apportons l'orbite à votre porte. Vérifiez votre position en un clic."
            </p>
         </div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -z-0"></div>
       </section>
 
-      {/* Verification Tool */}
-      <section className="max-w-7xl mx-auto px-4 -mt-16 relative z-20">
-         <div className="grid lg:grid-cols-3 gap-8">
-            {/* Search Card */}
-            <div className="lg:col-span-2 bg-surface-container-lowest p-10 rounded-stitch shadow-2xl border border-on-surface/5">
-               <h3 className="text-xs font-black uppercase tracking-[0.2em] text-on-surface/30 mb-8 italic">Recherche Géographique</h3>
-               
-               <div className="flex flex-col md:flex-row gap-4 mb-12">
-                  <div className="flex-grow relative group">
-                     <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" size={20} />
-                     <input 
+      {/* Main Tool Container */}
+      <section className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Eligibility Form & Results */}
+          <div className="lg:col-span-12">
+            <div className="bg-surface-container-lowest rounded-[2.5rem] p-4 md:p-12 shadow-long-fall border border-on-surface/[0.03]">
+              <div className="grid lg:grid-cols-2 gap-12">
+                
+                {/* Left Side: Input & Info */}
+                <div className="space-y-12">
+                  <div className="space-y-6">
+                    <h3 className="text-2xl font-display font-black uppercase italic tracking-tighter text-on-surface">Testez votre signal</h3>
+                    <p className="text-on-surface/50 text-sm leading-relaxed">
+                      Entrez votre quartier ou vos coordonnées pour analyser la puissance du flux satellite disponible dans votre zone.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleVerify} className="space-y-6">
+                    <div className="relative group">
+                      <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" size={20} />
+                      <input 
                         type="text" 
-                        placeholder="Quartier, Avenue ou Rue à Likasi..." 
-                        className="w-full pl-16 pr-6 py-6 bg-surface-container-low rounded-full outline-none font-bold text-on-surface placeholder:text-on-surface/20 border-2 border-transparent focus:border-primary/10 transition-all"
+                        placeholder="Quartier, Avenue ou Zone à Likasi..." 
+                        className="w-full pl-16 pr-6 py-6 bg-surface-container-high rounded-2xl outline-none font-bold text-on-surface placeholder:text-on-surface/20 border-2 border-transparent focus:border-primary/20 transition-all"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                     />
-                  </div>
-                  <button 
-                    onClick={handleVerify}
-                    disabled={loading}
-                    className="btn-primary py-6 px-12 text-center text-xs font-black shadow-2xl shadow-primary/20 disabled:opacity-50"
-                  >
-                    {loading ? 'Analyse en cours...' : 'Vérifier la connexion'}
-                  </button>
-               </div>
+                      />
+                    </div>
+                    <button 
+                      type="submit"
+                      disabled={loading || !address}
+                      className="w-full flex items-center justify-center gap-3 bg-on-surface text-surface py-6 rounded-2xl font-display font-black text-xs uppercase tracking-[0.4em] hover:opacity-95 transition-all active:scale-95 disabled:opacity-50"
+                    >
+                      {loading ? (
+                        <>
+                          <Loader2 size={20} className="animate-spin" />
+                          <span>Analyse Orbitale...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Satellite size={20} />
+                          <span>Vérifier l'éligibilité</span>
+                        </>
+                      )}
+                    </button>
+                  </form>
 
-               {/* Map Container */}
-               <div className="h-[400px] rounded-stitch overflow-hidden border border-on-surface/5 relative">
-                  <MapContainer center={LIKASI_COORDS} zoom={13} style={{ height: '100%', width: '100%' }} zoomControl={false}>
-                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    <Circle center={LIKASI_COORDS} radius={5000} pathOptions={{ color: '#00446c', fillColor: '#00446c', fillOpacity: 0.1 }} />
-                    <Marker position={LIKASI_COORDS} />
+                  {/* Results Display */}
+                  <AnimatePresence>
+                    {checkResult && (
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="p-8 rounded-3xl bg-primary text-white space-y-8 shadow-2xl shadow-primary/20"
+                      >
+                         <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
+                               <CheckCircle2 size={24} className="animate-pulse" />
+                            </div>
+                            <div>
+                               <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Status de Connexion</p>
+                               <h4 className="text-2xl font-display font-black italic uppercase tracking-tighter">{checkResult.status}</h4>
+                            </div>
+                         </div>
+                         
+                         <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
+                               <p className="text-[8px] font-black uppercase tracking-widest opacity-40 mb-1">Zone Détectée</p>
+                               <p className="text-sm font-bold italic">{checkResult.zone}</p>
+                            </div>
+                            <div className="bg-white/5 p-4 rounded-xl border border-white/10">
+                               <p className="text-[8px] font-black uppercase tracking-widest opacity-40 mb-1">Latence Est.</p>
+                               <p className="text-sm font-bold italic">{checkResult.latency}</p>
+                            </div>
+                         </div>
+
+                         <Link to="/offres" className="flex items-center justify-center gap-3 w-full py-5 bg-white text-primary rounded-xl font-display font-black text-[10px] uppercase tracking-[0.3em] hover:scale-[1.02] transition-all">
+                            Voir les forfaits <ArrowRight size={14} />
+                         </Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {!checkResult && !loading && (
+                    <div className="p-8 rounded-3xl border border-dashed border-on-surface/10 flex flex-col items-center gap-6 text-center opacity-40 grayscale">
+                       <Globe size={40} className="text-primary/40" />
+                       <p className="text-[10px] font-black uppercase tracking-widest leading-loose">
+                         L'IA de géolocalisation attend votre saisie pour analyser la constellation de satellites disponible.
+                       </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right Side: Map */}
+                <div className="relative group rounded-3xl overflow-hidden border border-on-surface/[0.03] shadow-inner h-[500px] lg:h-full min-h-[400px]">
+                   <MapContainer 
+                     center={LIKASI_COORDS} 
+                     zoom={13} 
+                     style={{ height: '100%', width: '100%' }} 
+                     zoomControl={false}
+                     scrollWheelZoom={false}
+                   >
+                    <TileLayer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+                    <Circle center={LIKASI_COORDS} radius={6000} pathOptions={{ color: '#00446c', fillColor: '#00446c', fillOpacity: 0.15, weight: 1 }} />
                     <RecenterMap coords={LIKASI_COORDS} />
                   </MapContainer>
                   
-                  {/* Floating Legend */}
-                  <div className="absolute bottom-6 left-6 z-[1001] bg-white p-4 rounded-stitch-sm shadow-xl flex items-center gap-4">
-                     <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-primary"></div>
-                        <span className="text-[9px] font-black uppercase tracking-widest text-on-surface/40">Zone Couverte</span>
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-            {/* Sidebar Status */}
-            <div className="space-y-6">
-               <div className="bg-surface-container-lowest p-8 rounded-stitch shadow-long-fall border border-on-surface/5">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-on-surface/30 mb-8 italic">États du Réseau</h3>
-                  <div className="space-y-4">
-                     <StatusIndicator type="TOTAL" label="Couverture Totale" description="Connexion instantanée disponible." active={checkResult?.type === 'TOTAL'} />
-                     <StatusIndicator type="PARTIELLE" label="Couverture Partielle" description="Installation sous 48h requise." active={checkResult?.type === 'PARTIELLE'} />
-                     <StatusIndicator type="PREORDER" label="Pré-commande" description="Nouveaux équipements en cours." active={checkResult?.type === 'PREORDER'} />
-                  </div>
-               </div>
-
-               {checkResult ? (
-                 <div className="bg-primary p-10 rounded-stitch text-white shadow-2xl shadow-primary/40 animate-in fade-in zoom-in duration-500">
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-6">
-                       <Radio size={20} className="animate-pulse" />
+                  {/* Floating Indicator */}
+                  <div className="absolute top-6 right-6 z-20 bg-surface-lowest/80 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-on-surface/5">
+                    <div className="flex items-center gap-3">
+                       <div className="w-2 h-2 rounded-full bg-primary animate-signal"></div>
+                       <span className="text-[10px] font-black uppercase tracking-widest text-on-surface">Signal Optimal</span>
                     </div>
-                    <h4 className="text-2xl font-black italic tracking-tight mb-6 uppercase">Résultat trouvé</h4>
-                    <div className="space-y-4 mb-10">
-                       <div className="flex justify-between border-b border-white/10 pb-2">
-                          <span className="text-[9px] font-black uppercase tracking-widest text-white/40">Signal</span>
-                          <span className="font-bold">{checkResult.signal}</span>
-                       </div>
-                       <div className="flex justify-between border-b border-white/10 pb-2">
-                          <span className="text-[9px] font-black uppercase tracking-widest text-white/40">Latence</span>
-                          <span className="font-bold">{checkResult.latency}</span>
-                       </div>
-                    </div>
-                    <Link to="/register" className="w-full py-4 bg-white text-primary rounded-full font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
-                       S'inscrire maintenant <ArrowRight size={14} />
-                    </Link>
-                 </div>
-               ) : (
-                 <div className="bg-surface-container-low p-10 rounded-stitch border border-dashed border-on-surface/10 text-center flex flex-col items-center gap-6 saturate-0 opacity-50">
-                    <Globe size={48} className="text-on-surface/20" />
-                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface/40 leading-relaxed">
-                      L'IA de géolocalisation attend votre saisie pour analyser l'orbite.
-                    </p>
-                 </div>
-               )}
-
-               <div className="p-8 rounded-stitch bg-atmospheric text-white flex items-center gap-6">
-                  <Activity size={32} className="shrink-0 opacity-50" />
-                  <div>
-                    <h5 className="text-[10px] font-black tracking-widest uppercase mb-1">Status Satellite</h5>
-                    <p className="text-sm font-bold italic">En ligne - LEO Konstellation 4</p>
                   </div>
-               </div>
+                </div>
+
+              </div>
             </div>
-         </div>
+          </div>
+          
+          {/* Network Health Cards */}
+          <div className="lg:col-span-4 bg-surface-lowest p-8 rounded-[2rem] border border-on-surface/[0.03] shadow-premium">
+             <div className="flex items-center gap-4 mb-8">
+                <Activity className="text-primary" size={24} />
+                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-on-surface">Santé du Réseau</h5>
+             </div>
+             <div className="space-y-6">
+                <div className="space-y-2">
+                   <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest opacity-40">
+                      <span>Charge Satellite</span>
+                      <span>42%</span>
+                   </div>
+                   <div className="h-1 w-full bg-on-surface/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-primary w-[42%]"></div>
+                   </div>
+                </div>
+                <div className="space-y-2">
+                   <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest opacity-40">
+                      <span>Uptime Mensuel</span>
+                      <span>99.98%</span>
+                   </div>
+                   <div className="h-1 w-full bg-on-surface/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-primary w-[99%]"></div>
+                   </div>
+                </div>
+             </div>
+          </div>
+
+          <div className="lg:col-span-8 bg-atmospheric p-10 rounded-[2rem] text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+             <div className="absolute inset-0 bg-noise opacity-10"></div>
+             <div className="relative z-10 flex items-center gap-6">
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
+                   <Radio size={32} />
+                </div>
+                <div>
+                   <h4 className="text-xl font-display font-black uppercase italic tracking-tighter leading-none">Signal Global</h4>
+                   <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mt-2">LEO Konstellation 4 - Actif</p>
+                </div>
+             </div>
+             <Link to="/support" className="relative z-10 px-10 py-5 bg-white text-primary rounded-xl font-display font-black uppercase tracking-widest text-[9px] hover:scale-105 transition-all">
+                Signaler un problème
+             </Link>
+          </div>
+
+        </div>
       </section>
     </div>
   );

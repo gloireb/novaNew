@@ -1,70 +1,69 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Check, ArrowRight, Zap, Users, Briefcase, Star, CheckCircle2, ShieldCheck, Flame } from 'lucide-react';
+import { motion } from 'motion/react';
+import { CheckCircle2, Zap, Users, Star, ArrowRight, ShieldCheck, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const PlanCard = ({ title, price, speed, data, icon: Icon, description, features, highlight, badge, index }) => (
+const PlanCard = ({ title, price, speed, data, icon: Icon, features, highlight, description, index }) => (
   <motion.div 
-    initial={{ opacity: 0, y: 40 }}
+    initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.8, delay: index * 0.1, ease: [0.19, 1, 0.22, 1] }}
+    transition={{ duration: 0.8, delay: index * 0.1 }}
     className={`
-      relative flex flex-col p-12 rounded-stitch transition-all duration-700
+      flex flex-col p-12 rounded-[2rem] transition-all duration-700 relative
       ${highlight 
-        ? 'bg-primary text-white scale-105 z-10 shadow-2xl shadow-primary/40 overflow-hidden' 
-        : 'glass-card hover:-translate-y-3'}
+        ? 'bg-on-surface text-surface scale-105 z-10 shadow-long-fall overflow-hidden' 
+        : 'bg-surface-container-lowest text-on-surface hover:-translate-y-2 border border-on-surface/[0.03]'}
     `}
   >
     {highlight && (
-      <>
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 -translate-y-1/2 translate-x-1/2 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 translate-y-1/2 -translate-x-1/2 rounded-full blur-2xl"></div>
-      </>
-    )}
-
-    {badge && (
-      <div className="absolute top-8 right-8">
-         <div className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-[0.2em] ${highlight ? 'bg-white/20 text-white' : 'bg-primary/5 text-primary'}`}>
-            <Flame size={12} fill="currentColor" /> {badge}
-         </div>
+      <div className="absolute top-0 right-0 p-4">
+        <div className="bg-primary text-white text-[8px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg shadow-primary/20">
+           Populaire
+        </div>
       </div>
     )}
 
     <div className="mb-12">
-      <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-8 ${highlight ? 'bg-white/10' : 'bg-primary/5 text-primary'}`}>
-        <Icon size={28} className="stroke-[1.5px]" />
+      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-10 ${highlight ? 'bg-primary text-white' : 'bg-primary/5 text-primary'}`}>
+        <Icon size={24} />
       </div>
-      <h3 className="text-4xl font-black tracking-tighter uppercase italic mb-3 leading-none">{title}</h3>
-      <p className={`text-xs font-bold leading-relaxed tracking-wide uppercase ${highlight ? 'text-white/60' : 'text-on-surface/40'}`}>
+      <h3 className="text-4xl font-display font-black tracking-tighter uppercase italic leading-none mb-3">{title}</h3>
+      <p className={`text-xs font-bold uppercase tracking-widest leading-relaxed ${highlight ? 'text-white/40' : 'text-on-surface/30'}`}>
         {description}
       </p>
     </div>
 
-    <div className="flex items-baseline gap-2 mb-12">
-      <span className="text-7xl font-black tracking-tighter">${price}</span>
-      <span className={`text-[10px] font-black uppercase tracking-[0.3em] ${highlight ? 'text-white/40' : 'text-on-surface/30'}`}>/ mois</span>
+    <div className="mb-12">
+      <div className="flex items-baseline gap-2">
+        <span className="text-7xl font-display font-black tracking-tighter leading-none">${price}</span>
+        <span className={`text-[10px] font-black uppercase tracking-[0.3em] ${highlight ? 'text-white/30' : 'text-on-surface/20'}`}>/ mois</span>
+      </div>
     </div>
 
     <div className="space-y-10 flex-grow">
-      {/* Specs Grid */}
-      <div className="grid grid-cols-2 gap-4">
-         <div className={`p-6 rounded-stitch-sm transition-colors ${highlight ? 'bg-white/10' : 'bg-surface-container-low hover:bg-surface-container-high'}`}>
-            <p className={`text-[8px] font-black uppercase tracking-[0.3em] mb-2 ${highlight ? 'text-white/40' : 'text-on-surface/30'}`}>Performance</p>
-            <p className="text-xl font-black tracking-tighter">{speed}</p>
-         </div>
-         <div className={`p-6 rounded-stitch-sm transition-colors ${highlight ? 'bg-white/10' : 'bg-surface-container-low hover:bg-surface-container-high'}`}>
-            <p className={`text-[8px] font-black uppercase tracking-[0.3em] mb-2 ${highlight ? 'text-white/40' : 'text-on-surface/30'}`}>Capacité</p>
-            <p className="text-xl font-black tracking-tighter">{data}</p>
-         </div>
+      {/* Performance Meter */}
+      <div className="space-y-4">
+        <div className="flex justify-between items-end">
+          <span className={`text-[10px] font-black uppercase tracking-widest ${highlight ? 'text-white/40' : 'text-on-surface/30'}`}>Vitesse Max</span>
+          <span className="text-sm font-black italic">{speed} Mbps</span>
+        </div>
+        <div className={`h-1.5 w-full rounded-full overflow-hidden ${highlight ? 'bg-white/10' : 'bg-on-surface/5'}`}>
+          <motion.div 
+            initial={{ width: 0 }}
+            whileInView={{ width: '100%' }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, delay: index * 0.2 }}
+            className={`h-full ${highlight ? 'bg-primary' : 'bg-primary'}`}
+          />
+        </div>
       </div>
 
-      {/* Feature List */}
       <ul className="space-y-5">
         {features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-4 group">
-            <div className={`w-1.5 h-1.5 rounded-full transition-all ${highlight ? 'bg-white/40 group-hover:bg-white' : 'bg-primary/20 group-hover:bg-primary group-hover:scale-125'}`}></div>
-            <span className={`text-[11px] font-bold italic uppercase tracking-widest ${highlight ? 'text-white/80' : 'text-on-surface/60'}`}>
+          <li key={i} className="flex items-center gap-4">
+            <CheckCircle2 size={16} className={highlight ? 'text-primary' : 'text-primary'} />
+            <span className={`text-[11px] font-bold italic uppercase tracking-widest ${highlight ? 'text-white/70' : 'text-on-surface/60'}`}>
               {feature}
             </span>
           </li>
@@ -75,11 +74,11 @@ const PlanCard = ({ title, price, speed, data, icon: Icon, description, features
     <Link 
       to="/register" 
       className={`
-        mt-12 py-6 rounded-full font-black uppercase tracking-[0.3em] text-[10px] flex items-center justify-center gap-3 transition-all duration-500 hover:scale-[1.02] active:scale-95
-        ${highlight ? 'bg-white text-primary shadow-2xl shadow-white/10' : 'btn-primary'}
+        mt-12 py-5 rounded-xl font-display font-black uppercase tracking-[0.4em] text-[10px] flex items-center justify-center gap-3 transition-all duration-500
+        ${highlight ? 'bg-primary text-white hover:opacity-90 shadow-xl shadow-primary/20' : 'bg-on-surface text-surface hover:opacity-90 shadow-lg shadow-on-surface/10'}
       `}
     >
-      Activer maintenant <ArrowRight size={16} />
+      Activer <ArrowRight size={16} />
     </Link>
   </motion.div>
 );
@@ -88,95 +87,89 @@ const Pricing = () => {
   const plans = [
     {
       title: "Essentiel",
-      price: "49",
-      speed: "30 Mbps",
-      data: "200 Go",
-      description: "Optimisé pour la connectivité domestique standard.",
+      price: "49.99",
+      speed: "25",
+      description: "Optimisé pour le surf et les emails standards.",
       icon: Zap,
-      features: ["Router Multi-mode", "Installation Standard", "Support Technique 24/7"]
+      features: ["Volume Data 100 Go", "Router Wi-Fi Inclus", "Support Standard 24/7"]
     },
     {
-      title: "Impact",
-      price: "129",
-      speed: "200 Mbps",
-      data: "Illimité",
-      description: "L'excellence orbitale pour les entreprises & pros.",
-      icon: Briefcase,
+      title: "Populaire",
+      price: "79.99",
+      speed: "50",
       highlight: true,
-      badge: "Recommandé",
-      features: ["Priorité Réseau Absolute", "Antenne High-Gain", "Support Concierge 1h"]
+      description: "Le meilleur rapport performance/prix pour les familles.",
+      icon: Star,
+      features: ["Volume Data Illimité", "Priorité Streaming HD", "Antenne High-Gain Inclus"]
     },
     {
-      title: "Secteur",
-      price: "50",
-      speed: "100 Mbps",
-      data: "Illimité",
-      description: "Connectivité partagée pour structures familiales.",
+      title: "Famille",
+      price: "129.99",
+      speed: "100",
+      description: "Puissance orbitale sans compromis pour tous vos terminaux.",
       icon: Users,
-      features: ["Streaming HD/4K", "Appareils Illimités", "Contrôle Data Parental"]
+      features: ["Volume Data Illimité", "Multi-flux 4K Garanti", "Support Prioritaire 1h"]
     }
   ];
 
   return (
-    <div className="bg-surface pb-40 font-display">
-      {/* Pricing Header - ATMOSPHERIC TEXTURE */}
-      <section className="relative pt-48 pb-32 px-4 text-center overflow-hidden">
-         <div className="orbital-glow w-[800px] h-[800px] -top-1/2 left-1/2 -translate-x-1/2 opacity-10"></div>
-         
-         <div className="max-w-5xl mx-auto flex flex-col items-center gap-10">
-            <motion.h4 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-[10px] font-black uppercase tracking-[0.6em] text-primary"
-            >
-              Architectures Tarifaires
-            </motion.h4>
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
-              className="text-6xl md:text-9xl font-black text-on-surface uppercase italic leading-[0.85] tracking-tighter"
-            >
-              Élevez votre <br /> <span className="text-primary not-italic underline decoration-primary/10 underline-offset-8">Standard.</span>
-            </motion.h1>
-            <p className="text-editorial text-xl italic max-w-xl mx-auto">
-              "La technologie satellite de pointe, calibrée pour Likasi."
-            </p>
-         </div>
+    <div className="bg-surface-container-low min-h-screen pb-40">
+      {/* Pricing Header - NO LINES / TONAL COHERENCE */}
+      <section className="relative pt-48 pb-32 px-6 text-center">
+        <div className="max-w-4xl mx-auto space-y-8">
+           <motion.h4 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             className="text-[10px] font-black uppercase tracking-[0.6em] text-primary"
+           >
+             Architectures Tarifaires
+           </motion.h4>
+           <motion.h1 
+             initial={{ opacity: 0, y: 30 }}
+             animate={{ opacity: 1, y: 0 }}
+             className="text-6xl md:text-9xl font-display font-black text-on-surface uppercase italic leading-[0.85] tracking-tighter"
+           >
+             Élevez votre <br /> <span className="text-primary not-italic">Standard.</span>
+           </motion.h1>
+           <p className="text-on-surface/40 text-lg md:text-xl font-body italic max-w-xl mx-auto leading-relaxed">
+             "La technologie satellite de pointe, calibrée pour le Katanga et ses exigences."
+           </p>
+        </div>
       </section>
 
-      {/* Pricing Grid - EDITORIAL ASYMMETRY */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-3 gap-10 items-center">
+      {/* Pricing Grid */}
+      <section className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-3 gap-8 items-center">
           {plans.map((plan, idx) => (
             <PlanCard key={idx} index={idx} {...plan} />
           ))}
         </div>
       </section>
 
-      {/* Comparison Nudge - PREMIUM GLASS */}
-      <section className="mt-40 max-w-4xl mx-auto px-4">
-         <motion.div 
-           initial={{ opacity: 0, scale: 0.98 }}
-           whileInView={{ opacity: 1, scale: 1 }}
-           viewport={{ once: true }}
-           className="p-16 rounded-[40px] glass-card border-none flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left"
-         >
-            <div className="space-y-4">
-               <h3 className="text-3xl font-black uppercase italic tracking-tighter">Besoins Industriels ?</h3>
-               <p className="text-xs font-bold text-on-surface/40 uppercase tracking-[0.3em]">Solutions sur mesure pour sites miniers et infrastructures.</p>
-            </div>
-            <Link to="/support" className="px-12 py-5 bg-on-surface text-surface rounded-full font-black text-xs uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all shadow-2xl">
-               Consulter un expert
-            </Link>
-         </motion.div>
+      {/* Comparison Drawer Nudge */}
+      <section className="mt-40 max-w-5xl mx-auto px-6">
+        <div className="bg-on-surface p-12 md:p-20 rounded-[40px] flex flex-col md:flex-row items-center justify-between gap-12 text-surface relative overflow-hidden">
+           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[80px]"></div>
+           <div className="z-10 space-y-4">
+              <h3 className="text-4xl font-display font-black uppercase italic tracking-tighter">Besoins Industriels ?</h3>
+              <p className="text-white/40 text-sm font-bold uppercase tracking-widest max-w-xs">Solutions sur-mesure pour sites miniers et zones d'exploitation.</p>
+           </div>
+           <Link to="/support" className="z-10 px-12 py-5 bg-primary text-white rounded-xl font-display font-black uppercase tracking-[0.4em] text-[10px] hover:scale-105 transition-all shadow-xl shadow-primary/20">
+              Consulter un expert
+           </Link>
+        </div>
       </section>
 
-      {/* Local Support Banner */}
-      <div className="mt-40 border-t border-on-surface/5 pt-20 text-center">
+      {/* FAQ Nudge */}
+      <div className="mt-40 text-center space-y-8">
          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-on-surface/20">
-           Standard de service Likasi – Assistance physique garantie
+           Une question sur nos forfaits ?
          </p>
+         <div className="flex gap-4 justify-center">
+            <Link to="/support" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-primary hover:underline">
+              <HelpCircle size={14} /> Voir la FAQ
+            </Link>
+         </div>
       </div>
     </div>
   );

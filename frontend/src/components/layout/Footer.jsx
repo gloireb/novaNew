@@ -1,88 +1,88 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, ArrowRight, ShieldCheck, Zap, Globe, MessageCircle } from 'lucide-react';
-import { LOGO_URL } from '../../constants';
+import { Mail, Phone, MapPin, Globe, Instagram, Twitter, Facebook } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-surface-container-low pt-24 pb-32 font-display">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
-          <div className="col-span-1 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-primary rounded-stitch-sm flex items-center justify-center overflow-hidden">
-                 <img src={LOGO_URL} alt="NOVA+" className="w-8 h-8 object-contain brightness-0 invert" />
+    <footer className="bg-surface-container-low pt-24 pb-12 font-display">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
+          {/* Brand & Mission */}
+          <div className="md:col-span-4 space-y-6">
+            <Link to="/" className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center overflow-hidden">
+                 <Globe className="text-white" size={24} />
               </div>
-              <span className="font-display font-black text-2xl tracking-tighter uppercase italic">
+              <span className="font-display font-extrabold text-2xl tracking-tighter text-on-surface uppercase italic">
                 NOVA<span className="text-primary not-italic">+</span>
               </span>
             </Link>
-            <p className="text-on-surface/40 text-sm leading-relaxed mb-8">
-              La solution de connectivité satellite haute performance pour Likasi et toute la région du Haut-Katanga.
+            <p className="text-on-surface/50 text-sm leading-relaxed max-w-xs">
+              Connecter les zones les plus reculées avec une technologie satellite de pointe. Haute performance, latence réduite, partout.
             </p>
             <div className="flex gap-4">
-              {[Globe, Mail, MessageCircle].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-stitch-sm bg-surface-container-high text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+              {[Instagram, Twitter, Facebook].map((Icon, i) => (
+                <a key={i} href="#" className="w-10 h-10 rounded-full bg-on-surface/5 text-on-surface/40 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
                   <Icon size={18} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Navigation</h4>
+          {/* Links Grid */}
+          <div className="md:col-span-2 space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Société</h4>
             <ul className="space-y-4">
-              {['Accueil', 'Offres', 'Couverture', 'À Propos'].map((link) => (
-                <li key={link}>
-                  <Link to={`/${link.toLowerCase().replace(' ', '-')}`} className="text-on-surface/60 hover:text-primary font-bold text-sm transition-colors block">
-                    {link}
-                  </Link>
+              {['À Propos', 'Carrières', 'Presse', 'Blog'].map((item) => (
+                <li key={item}>
+                  <Link to="#" className="text-on-surface/60 hover:text-primary font-bold text-sm transition-colors">{item}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Assistant Info */}
-          <div className="space-y-6">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Assistance</h4>
+          <div className="md:col-span-2 space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Support</h4>
             <ul className="space-y-4">
-              {['Centre d\'aide', 'Espace Client', 'Contact', 'FAQ'].map((link) => (
-                <li key={link}>
-                  <Link to="/support" className="text-on-surface/60 hover:text-primary font-bold text-sm transition-colors block">
-                    {link}
-                  </Link>
+              {['Centre d\'aide', 'Contact', 'FAQ', 'Statut'].map((item) => (
+                <li key={item}>
+                  <Link to="/support" className="text-on-surface/60 hover:text-primary font-bold text-sm transition-colors">{item}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Payment Badges */}
-          <div className="space-y-6">
-             <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Paiements Sécurisés</h4>
-             <div className="flex flex-wrap gap-2">
-                {['M-Pesa', 'Airtel', 'Orange'].map((badge) => (
-                  <div key={badge} className="px-3 py-1.5 bg-surface-container-lowest rounded-md text-[10px] font-black text-on-surface/40 uppercase tracking-widest border border-on-surface/5">
-                    {badge}
-                  </div>
-                ))}
-             </div>
-             <p className="text-[10px] text-on-surface/30 italic">
-               Toutes vos transactions sont sécurisées par cryptage SSL 256 bits.
-             </p>
+          {/* Payment & Trust */}
+          <div className="md:col-span-4 space-y-6">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Paiements Acceptés</h4>
+            <div className="grid grid-cols-3 gap-3">
+              <div className="bg-surface-lowest p-3 rounded-xl border border-on-surface/5 flex items-center justify-center group hover:border-primary/20 transition-colors">
+                <span className="text-[10px] font-black text-[#FFD700] drop-shadow-sm group-hover:scale-110 transition-transform tracking-tighter">M-PESA</span>
+              </div>
+              <div className="bg-surface-lowest p-3 rounded-xl border border-on-surface/5 flex items-center justify-center group hover:border-primary/20 transition-colors">
+                <span className="text-[10px] font-black text-[#ED1C24] drop-shadow-sm group-hover:scale-110 transition-transform tracking-tighter">AIRTEL</span>
+              </div>
+              <div className="bg-surface-lowest p-3 rounded-xl border border-on-surface/5 flex items-center justify-center group hover:border-primary/20 transition-colors">
+                <span className="text-[10px] font-black text-[#FF7900] drop-shadow-sm group-hover:scale-110 transition-transform tracking-tighter">ORANGE</span>
+              </div>
+            </div>
+            <div className="p-4 bg-primary/5 rounded-2xl border border-primary/10">
+              <p className="text-[10px] font-bold text-primary/60 italic leading-tight">
+                "Paiements 100% sécurisés via les opérateurs locaux leaders du marché."
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Area */}
-        <div className="pt-12 border-t border-on-surface/5 flex flex-col md:flex-row justify-between items-center gap-6">
-           <p className="text-[10px] font-black uppercase tracking-widest text-on-surface/30 italic">
-             Copyright © 2025 NOVA+ – Internet haut débit par satellite à Likasi. Tous droits réservés.
-           </p>
-           <div className="flex gap-8">
-              <Link to="#" className="text-[10px] font-bold text-on-surface/30 hover:text-primary uppercase tracking-widest">Mentions Légales</Link>
-              <Link to="#" className="text-[10px] font-bold text-on-surface/30 hover:text-primary uppercase tracking-widest">Confidentialité</Link>
-           </div>
+        {/* Legal Bottom */}
+        <div className="pt-8 border-t border-on-surface/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-on-surface/30">
+            © {new Date().getFullYear()} NOVA+ – Une marque de Novatech SARL. Tous droits réservés.
+          </p>
+          <div className="flex gap-8">
+            <Link to="#" className="text-[10px] font-bold text-on-surface/30 hover:text-primary uppercase tracking-widest">Confidentialité</Link>
+            <Link to="#" className="text-[10px] font-bold text-on-surface/30 hover:text-primary uppercase tracking-widest">Conditions</Link>
+          </div>
         </div>
       </div>
     </footer>
