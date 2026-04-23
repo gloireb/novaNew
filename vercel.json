@@ -1,0 +1,15 @@
+{
+  "buildCommand": "cd frontend && npm run build",
+  "installCommand": "npm install",
+  "framework": "vite",
+  "outputDirectory": "frontend/dist",
+  "devCommand": "cd frontend && npm run dev",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/:path((?!.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
