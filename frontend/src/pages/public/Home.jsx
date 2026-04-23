@@ -57,17 +57,6 @@ const Home = () => {
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          {/* Status Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 backdrop-blur-sm rounded-full border border-green-500/20 mb-8"
-          >
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-green-600">🌐 Service Opérationnel 24/7</span>
-          </motion.div>
-
           {/* Main Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
