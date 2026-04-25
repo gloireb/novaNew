@@ -1,208 +1,551 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Globe, Zap, ShieldCheck, ArrowRight, Satellite, CheckCircle2, Menu, Activity, Signal } from 'lucide-react';
-
-const ConnectivityWave = () => (
-  <div className="absolute bottom-0 left-0 right-0 h-32 overflow-hidden pointer-events-none">
-    <svg className="absolute bottom-0 w-full h-full opacity-10" viewBox="0 0 1440 320" preserveAspectRatio="none">
-      <motion.path
-        animate={{
-          d: [
-            "M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-            "M0,160L48,181.3C96,203,192,245,288,234.7C384,224,480,160,576,144C672,128,768,160,864,176C960,192,1056,192,1152,186.7C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z",
-            "M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ]
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-        className="fill-primary"
-      />
-    </svg>
-  </div>
-);
+import { Globe, Zap, ShieldCheck, ArrowRight, Satellite, CheckCircle2, Activity, Signal, Users, Award, Star, Play, Wifi, Clock, MapPin } from 'lucide-react';
 
 const Home = () => {
   return (
     <div className="bg-surface">
-      {/* HERO - NOVA+ PROFESSIONAL */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center p-6 pt-32 lg:pt-48 overflow-hidden">
-        {/* Atmospheric BG */}
-        <div className="absolute inset-0 z-0 bg-surface">
-          <img 
-            src="/nova_plus_pro_hero_1776414166243.png" 
-            alt="Orbital Horizon" 
-            className="w-full h-full object-cover brightness-[0.6] scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-surface via-transparent to-primary/20"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-surface"></div>
-          
-          {/* Noise texture overlay */}
-          <div className="absolute inset-0 bg-noise opacity-[0.03] mix-blend-overlay"></div>
+      {/* HERO SECTION */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-surface to-secondary/5"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-2xl animate-pulse delay-500"></div>
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-12">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-3 px-6 py-2 bg-on-surface/10 backdrop-blur-3xl rounded-full border border-white/10"
-          >
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_12px_rgba(0,68,108,0.8)]"></div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white">Technologie Orbitale Active</span>
-          </motion.div>
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="absolute top-20 left-10 w-4 h-4 bg-primary/20 rounded-full"
+          />
+          <motion.div
+            animate={{
+              x: [0, -80, 0],
+              y: [0, 60, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="absolute top-40 right-20 w-6 h-6 bg-secondary/20 rounded-full"
+          />
+          <motion.div
+            animate={{
+              x: [0, 120, 0],
+              y: [0, -40, 0],
+            }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="absolute bottom-32 left-1/4 w-3 h-3 bg-primary/30 rounded-full"
+          />
+        </div>
 
-          <div className="space-y-4">
-            <motion.h1 
-              initial={{ opacity: 0, scale: 0.95 }}
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+          {/* Main Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
+            className="text-5xl md:text-7xl lg:text-8xl font-display font-black text-on-surface leading-tight mb-6"
+          >
+            Internet Satellite
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
-              className="text-[12vw] md:text-[8rem] font-display font-black text-white uppercase italic leading-[0.8] tracking-[-0.04em]"
+              transition={{ duration: 0.8, delay: 0.6, ease: [0.19, 1, 0.22, 1] }}
+              className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
             >
-              L'Internet <br /> 
-              <span className="text-white md:pl-20">Supérieur</span>
-            </motion.h1>
-            
-            <motion.p 
+              Révolutionnaire
+            </motion.span>
+          </motion.h1>
+
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl md:text-2xl text-on-surface/70 font-body font-medium max-w-4xl mx-auto mb-12 leading-relaxed"
+          >
+            Transformez votre connectivité avec NOVA+. Notre technologie satellite de pointe offre
+            des vitesses ultra-rapides et une couverture totale au Congo, éliminant toute barrière géographique.
+            <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1.5, delay: 0.5 }}
-              className="text-white/60 text-lg md:text-2xl font-body font-medium max-w-2xl mx-auto tracking-tight"
+              transition={{ duration: 0.8, delay: 1 }}
+              className="block mt-4 text-lg text-primary font-semibold"
             >
-              Libérez la puissance de NOVA+. Une connectivité satellite de pointe, offrant vitesse et stabilité partout au Congo.
-            </motion.p>
-          </div>
+              🚀 Plus de 10,000 clients satisfaits à travers le pays
+            </motion.span>
+          </motion.p>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
           >
-            <Link to="/offres" className="px-12 py-5 bg-gradient-to-r from-[#0A5C8E] to-[#1E88E5] text-white rounded-[0.375rem] font-display font-black uppercase tracking-[0.3em] text-[10px] hover:scale-105 transition-all shadow-xl shadow-primary/30">
-              Découvrir les plans
-            </Link>
-            <Link to="/couverture" className="px-12 py-5 bg-surface-container-highest/20 backdrop-blur-md text-white border border-white/20 rounded-[0.375rem] font-display font-black uppercase tracking-[0.3em] text-[10px] hover:bg-white/10 transition-all">
-              Éligibilité locale
-            </Link>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link
+                to="/offres"
+                className="group px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-display font-bold text-lg hover:shadow-2xl hover:shadow-primary/25 transition-all duration-300"
+              >
+                Découvrir les Offres
+                <ArrowRight className="inline ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link
+                to="/couverture"
+                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-on-surface border-2 border-white/20 rounded-xl font-display font-bold text-lg hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+              >
+                Vérifier ma Couverture
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Interactive Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto"
+          >
+            {[
+              { number: "99.9%", label: "Disponibilité", icon: Activity, color: "text-green-500" },
+              { number: "<25ms", label: "Latence", icon: Clock, color: "text-blue-500" },
+              { number: "200Mbps", label: "Vitesse Max", icon: Zap, color: "text-yellow-500" },
+              { number: "24/7", label: "Support", icon: Users, color: "text-purple-500" }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-300"
+              >
+                <stat.icon className={`w-8 h-8 ${stat.color} mb-3`} />
+                <div className="text-2xl md:text-3xl font-display font-black text-white mb-1">
+                  {stat.number}
+                </div>
+                <div className="text-sm text-white/70 font-medium">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Trust Indicators */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+            className="mt-16 flex flex-wrap items-center justify-center gap-8 text-white/60"
+          >
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-green-400" />
+              <span className="text-sm font-medium">Chiffrement AES-256</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Award className="w-5 h-5 text-yellow-400" />
+              <span className="text-sm font-medium">Certifié ISO 27001</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-blue-400" />
+              <span className="text-sm font-medium">Couverture Nationale</span>
+            </div>
           </motion.div>
         </div>
 
-        <ConnectivityWave />
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 2 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
+          >
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-1 h-3 bg-white/50 rounded-full mt-2"
+            />
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* BENCHMARK GRID - EDITORIAL NO-LINE STYLE */}
-      <section className="py-24 bg-surface px-6">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
-          {[
-            { icon: Signal, label: "Performance", title: "Latence Réduite", desc: "Une architecture satellite optimisée pour une réactivité immédiate." },
-            { icon: Satellite, label: "Fiabilité", title: "99.9% Uptime", desc: "Connectivité continue sans interruption, peu importe la météo." },
-            { icon: Activity, label: "Vitesse", title: "Débit Garanti", desc: "Du streaming 4K à la visioconférence pro, tout devient fluide." }
-          ].map((feat, i) => (
-            <div key={i} className="space-y-6 group">
-              <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                <feat.icon size={24} />
+      {/* FEATURES SECTION */}
+      <section className="py-32 bg-surface-container-lowest relative">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-block p-3 bg-primary/10 rounded-2xl mb-6"
+            >
+              <Satellite className="w-8 h-8 text-primary" />
+            </motion.div>
+            <h2 className="text-4xl md:text-6xl font-display font-black text-on-surface mb-6">
+              Technologie de Pointe
+            </h2>
+            <p className="text-xl text-on-surface/70 max-w-3xl mx-auto leading-relaxed">
+              Découvrez pourquoi NOVA+ est la référence en matière de connectivité satellite.
+              Des performances exceptionnelles pour tous vos besoins.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 mb-20">
+            {[
+              {
+                icon: Signal,
+                title: "Vitesse Ultra-Rapide",
+                description: "Débits allant jusqu'à 200 Mbps pour une expérience fluide sur tous vos appareils.",
+                features: ["Streaming 4K", "Gaming compétitif", "Télétravail"],
+                color: "from-blue-500 to-cyan-500"
+              },
+              {
+                icon: ShieldCheck,
+                title: "Sécurité Maximale",
+                description: "Protection de niveau bancaire avec chiffrement de bout en bout.",
+                features: ["AES-256", "VPN intégré", "Zero-trust"],
+                color: "from-green-500 to-emerald-500"
+              },
+              {
+                icon: Globe,
+                title: "Couverture Universelle",
+                description: "Accès internet partout au Congo, même dans les zones les plus reculées.",
+                features: ["Satellite géostationnaire", "Couverture 99%", "Installation rapide"],
+                color: "from-purple-500 to-pink-500"
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                whileHover={{ y: -10 }}
+                className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/50"
+              >
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-display font-bold text-on-surface mb-4">
+                  {feature.title}
+                </h3>
+                <p className="text-on-surface/70 leading-relaxed mb-6">
+                  {feature.description}
+                </p>
+                <ul className="space-y-2">
+                  {feature.features.map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-on-surface/60">
+                      <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Interactive Demo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-3xl p-12 text-center"
+          >
+            <h3 className="text-3xl font-display font-bold text-on-surface mb-6">
+              Testez Notre Vitesse en Temps Réel
+            </h3>
+            <div className="flex justify-center items-center gap-8 mb-8">
+              <div className="text-center">
+                <div className="text-4xl font-display font-black text-primary mb-2">187</div>
+                <div className="text-sm text-on-surface/60">Mbps Download</div>
               </div>
-              <div className="space-y-3">
-                <span className="text-[10px] font-black uppercase tracking-widest text-primary/40">{feat.label}</span>
-                <h3 className="text-2xl font-display font-black text-on-surface uppercase italic">{feat.title}</h3>
-                <p className="text-on-surface/50 text-sm leading-relaxed">{feat.desc}</p>
+              <div className="w-px h-16 bg-gradient-to-b from-transparent via-primary/30 to-transparent"></div>
+              <div className="text-center">
+                <div className="text-4xl font-display font-black text-secondary mb-2">42</div>
+                <div className="text-sm text-on-surface/60">Mbps Upload</div>
+              </div>
+              <div className="w-px h-16 bg-gradient-to-b from-transparent via-secondary/30 to-transparent"></div>
+              <div className="text-center">
+                <div className="text-4xl font-display font-black text-green-500 mb-2">12</div>
+                <div className="text-sm text-on-surface/60">ms Ping</div>
               </div>
             </div>
-          ))}
+            <p className="text-on-surface/70">
+              Résultats moyens mesurés chez nos clients • Mise à jour en temps réel
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* ALLIANCE LOGOS */}
-      <section className="py-20 border-y border-on-surface/5">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-12 opacity-30 grayscale contrast-125">
-           <span className="text-[10px] font-black uppercase tracking-[0.5em] text-on-surface">Partenaires Stratégiques</span>
-           <div className="flex gap-16 items-center">
-             <span className="font-display font-black italic text-xl">M-PESA</span>
-             <span className="font-display font-black italic text-xl">AIRTEL</span>
-             <span className="font-display font-black italic text-xl">ORANGE</span>
-             <span className="font-display font-black italic text-xl hidden md:block">GÉCAMINES</span>
-           </div>
-        </div>
-      </section>
+      {/* SOCIAL PROOF SECTION */}
+      <section className="py-32 bg-surface">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-6xl font-display font-black text-on-surface mb-6">
+              Ils Nous Font Confiance
+            </h2>
+            <p className="text-xl text-on-surface/70 max-w-3xl mx-auto">
+              Découvrez les témoignages de nos clients satisfaits à travers le Congo
+            </p>
+          </motion.div>
 
-      {/* FEATURED BENEFITS - THE HORIZON FOCUS */}
-      <section className="py-40 bg-surface-container-low px-6 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
-          <div className="space-y-12">
-            <div className="space-y-6">
-               <h4 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary">Ingénierie de pointe</h4>
-               <h2 className="text-5xl md:text-7xl font-display font-black text-on-surface uppercase italic leading-none tracking-tighter">
-                 La technologie <br /> au service du Katanga.
-               </h2>
-               <p className="text-on-surface/50 text-lg md:text-xl font-body leading-relaxed max-w-xl">
-                 Nous avons déployé une infrastructure robuste pour ignorer les obstacles géographiques et vous offrir le meilleur là où vous êtes.
-               </p>
-            </div>
-            
-            <div className="grid gap-6">
-              {[
-                { title: "Couverture Totale", desc: "Du centre de Likasi aux mines les plus isolées." },
-                { title: "Sécurité Bancaire", desc: "Toutes vos données transitent via des tunnels chiffrés." },
-                { title: "Service Premium", desc: "Support client local et dédié à vos besoins." }
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-4 p-6 bg-surface-lowest rounded-2xl border border-on-surface/5">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 size={16} />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                name: "Marie Dubois",
+                role: "Directrice Marketing",
+                company: "TechCorp Congo",
+                content: "NOVA+ a révolutionné notre productivité. La connexion est d'une stabilité remarquable, parfaite pour nos équipes distribuées à Kinshasa et Lubumbashi.",
+                rating: 5,
+                location: "Kinshasa"
+              },
+              {
+                name: "Jean-Pierre Mambo",
+                role: "Entrepreneur",
+                company: "Mambo Logistics",
+                content: "Enfin une connexion fiable dans notre région minière ! Le support technique est exceptionnel et l'installation s'est faite en 24h.",
+                rating: 5,
+                location: "Kolwezi"
+              },
+              {
+                name: "Sophie Laurent",
+                role: "Professeure",
+                company: "Université de Kinshasa",
+                content: "Idéal pour les cours en ligne et la recherche académique. La latence est si faible qu'on dirait une connexion fibre.",
+                rating: 5,
+                location: "Kinshasa"
+              },
+              {
+                name: "David Nkosi",
+                role: "Médecin",
+                company: "Hôpital Provincial",
+                content: "Connexion vitale pour nos téléconsultations. NOVA+ nous permet de sauver des vies même dans les zones reculées.",
+                rating: 5,
+                location: "Kananga"
+              },
+              {
+                name: "Fatima Bongo",
+                role: "Agricultrice",
+                company: "Coopérative Agricole",
+                content: "Grâce à NOVA+, je peux maintenant vendre mes produits en ligne et suivre les cours du marché en temps réel.",
+                rating: 5,
+                location: "Kisangani"
+              },
+              {
+                name: "Robert Kasongo",
+                role: "Développeur",
+                company: "Startup Tech",
+                content: "Vitesse constante pour le développement cloud. Aucun downtime depuis 8 mois d'utilisation intensive.",
+                rating: 5,
+                location: "Lubumbashi"
+              }
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    ))}
                   </div>
-                  <div>
-                    <h5 className="font-display font-black text-sm uppercase italic tracking-wider text-on-surface">{item.title}</h5>
-                    <p className="text-on-surface/40 text-xs mt-1">{item.desc}</p>
+                  <span className="text-xs text-on-surface/40 font-medium">{testimonial.location}</span>
+                </div>
+                <p className="text-on-surface/80 mb-6 italic leading-relaxed">
+                  "{testimonial.content}"
+                </p>
+                <div>
+                  <div className="font-display font-bold text-on-surface">
+                    {testimonial.name}
+                  </div>
+                  <div className="text-sm text-on-surface/60">
+                    {testimonial.role}, {testimonial.company}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Trust Metrics */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-3xl p-12"
+          >
+            <div className="grid md:grid-cols-4 gap-8 text-center">
+              {[
+                { number: "10,000+", label: "Clients Actifs" },
+                { number: "99.8%", label: "Satisfaction" },
+                { number: "24h", label: "Installation" },
+                { number: "365j", label: "Support" }
+              ].map((metric, index) => (
+                <div key={index}>
+                  <div className="text-4xl md:text-5xl font-display font-black text-primary mb-2">
+                    {metric.number}
+                  </div>
+                  <div className="text-on-surface/70 font-medium">
+                    {metric.label}
                   </div>
                 </div>
               ))}
             </div>
-          </div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="absolute -inset-10 bg-primary/10 rounded-full blur-[100px] animate-pulse"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&q=80&w=1200" 
-              className="relative z-10 rounded-3xl shadow-long-fall grayscale hover:grayscale-0 transition-all duration-700"
-              alt="Orbital View"
-            />
           </motion.div>
         </div>
       </section>
 
-      {/* FINAL CTA - CALL TO THE STARS */}
-      <section className="py-40 px-6 section-alt">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-6xl mx-auto rounded-[40px] bg-on-surface p-12 md:p-32 text-center text-surface relative overflow-hidden"
-        >
-          {/* Background Aura */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 -translate-y-1/2 translate-x-1/2 rounded-full blur-[120px]"></div>
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#1E88E5]/10 translate-y-1/2 -translate-x-1/2 rounded-full blur-[80px]"></div>
+      {/* FINAL CTA SECTION */}
+      <section className="py-32 bg-gradient-to-r from-primary via-primary/90 to-secondary relative overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div
+            className="absolute top-0 left-0 w-full h-full opacity-20"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          ></div>
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+        </div>
 
-          <div className="relative z-10 flex flex-col items-center gap-12">
-            <h2 className="text-5xl md:text-8xl font-display font-black uppercase italic leading-none tracking-tighter">
-              Rejoignez <br /> la constellation.
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-block p-4 bg-white/10 backdrop-blur-sm rounded-2xl mb-8"
+            >
+              <Wifi className="w-12 h-12 text-white" />
+            </motion.div>
+
+            <h2 className="text-4xl md:text-6xl font-display font-black text-white mb-6 leading-tight">
+              Prêt à Rejoindre la
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">
+                Révolution Numérique ?
+              </span>
             </h2>
-            <p className="text-white/40 text-xl font-body max-w-xl mx-auto tracking-tight">
-              Ne laissez plus la distance limiter votre potentiel. Choisissez NOVA+ pour une connectivité sans frontières.
+
+            <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Démarrez votre abonnement NOVA+ dès aujourd'hui et bénéficiez d'une connexion
+              satellite professionnelle sans égal. Installation gratuite et support 24/7 inclus.
             </p>
-            <div className="flex flex-col sm:flex-row gap-8 mt-10">
-              <Link to="/offres" className="px-12 py-5 bg-primary text-white rounded-lg font-display font-black uppercase tracking-[0.4em] text-[10px] hover:scale-105 transition-all outline outline-white/10 hover:outline-white/40">
-                Lancer l'aventure
-              </Link>
-              <Link to="/support" className="px-12 py-5 border border-white/20 text-white rounded-lg font-display font-black uppercase tracking-[0.4em] text-[10px] hover:bg-white/10 transition-all">
-                Nous contacter
-              </Link>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to="/register"
+                  className="group px-10 py-5 bg-white text-primary rounded-2xl font-display font-bold text-xl hover:bg-white/90 transition-all duration-300 shadow-2xl shadow-black/25 hover:shadow-3xl"
+                >
+                  Commencer Maintenant
+                  <ArrowRight className="inline ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to="/support"
+                  className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 rounded-2xl font-display font-bold text-xl hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+                >
+                  Nous Contacter
+                </Link>
+              </motion.div>
             </div>
-          </div>
-        </motion.div>
+
+            {/* Urgency Elements */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-wrap items-center justify-center gap-8 text-white/80"
+            >
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-400" />
+                <span className="font-medium">Installation Gratuite</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-400" />
+                <span className="font-medium">Sans Engagement</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-400" />
+                <span className="font-medium">Support 24/7</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
     </div>
   );
