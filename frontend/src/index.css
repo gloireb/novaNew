@@ -6,34 +6,30 @@
 
 @layer base {
   body {
-    @apply bg-surface text-on-surface font-body antialiased;
+    @apply bg-white text-gray-900;
     scroll-behavior: smooth;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight text-on-surface;
   }
 }
 
 @layer components {
   .glass-nav {
-    @apply bg-surface/40 backdrop-blur-2xl border-b border-white/10 shadow-premium;
+    @apply bg-white/80 backdrop-blur-2xl border-b border-gray-200 shadow;
   }
 
   .glass-card {
-    @apply bg-white/60 backdrop-blur-xl border border-white/20 rounded-stitch shadow-premium transition-all duration-700 hover:shadow-2xl hover:bg-white/80;
+    @apply bg-white border border-gray-200 rounded-lg shadow transition-all duration-700 hover:shadow-2xl hover:bg-gray-50;
   }
 
   .card-premium {
-    @apply bg-surface-container-lowest rounded-stitch shadow-long-fall transition-all duration-700 hover:-translate-y-2 hover:shadow-premium;
+    @apply bg-gray-50 rounded-lg shadow-lg transition-all duration-700 hover:-translate-y-2 hover:shadow-xl;
   }
 
   .btn-primary {
-    @apply bg-atmospheric text-white font-display font-black uppercase tracking-[0.2em] text-[10px] px-10 py-5 rounded-full transition-all duration-500 hover:scale-105 active:scale-95 shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30;
+    @apply bg-blue-600 text-white font-bold uppercase tracking-wide text-xs px-10 py-5 rounded-full transition-all duration-500 hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/20 hover:shadow-2xl hover:shadow-blue-600/30;
   }
 
   .btn-secondary {
-    @apply bg-surface-container-high text-primary font-display font-black uppercase tracking-[0.2em] text-[10px] px-10 py-5 rounded-full transition-all duration-500 hover:bg-surface-container-highest active:scale-95 border border-primary/10;
+    @apply border border-blue-600 text-blue-600 bg-transparent font-bold uppercase tracking-wide text-xs px-10 py-5 rounded-full transition-all duration-500 hover:bg-blue-50 active:scale-95;
   }
 
   /* Global Connectivity Wave */
@@ -43,7 +39,7 @@
     left: 0;
     width: 200%;
     height: 100px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 100' preserveAspectRatio='none'%3E%3Cpath d='M0,50 C150,100 350,0 500,50 C650,100 850,0 1000,50 L1000,100 L0,100 Z' fill='%230A5C8E' fill-opacity='0.05'/%3E%3C/svg%3E");
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 100' preserveAspectRatio='none'%3E%3Cpath d='M0,50 C150,100 350,0 500,50 C650,100 850,0 1000,50 L1000,100 L0,100 Z' fill='%232563eb' fill-opacity='0.05'/%3E%3C/svg%3E");
     background-size: 50% 100%;
     animation: wave-slide 20s linear infinite;
     pointer-events: none;
@@ -63,12 +59,12 @@
   /* Orbital Glow Accents */
   .orbital-glow {
     @apply absolute rounded-full blur-[120px] pointer-events-none opacity-30 animate-pulse-slow;
-    background: radial-gradient(circle, #0A5C8E 0%, transparent 70%);
+    background: radial-gradient(circle, #2563eb 0%, transparent 70%);
   }
 
   /* No-Line transitions */
   .section-alt {
-    @apply bg-surface-container-low transition-colors duration-1000;
+    @apply bg-gray-50 transition-colors duration-1000;
   }
 }
 
@@ -78,7 +74,7 @@ h1, h2, h3 {
 }
 
 .text-editorial {
-  @apply text-on-surface/50 font-medium leading-relaxed tracking-tight;
+  @apply text-gray-600 font-medium leading-relaxed tracking-tight;
 }
 
 /* Custom Scrollbar for premium feel */
@@ -87,9 +83,9 @@ h1, h2, h3 {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-surface;
+  @apply bg-white;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary/20 rounded-full hover:bg-primary/40 transition-colors;
+  @apply bg-blue-600/20 rounded-full hover:bg-blue-600/40 transition-colors;
 }

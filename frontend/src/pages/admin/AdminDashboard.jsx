@@ -10,11 +10,11 @@ const KPICard = ({ title, value, change, icon: Icon, delay }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: delay * 0.1 }}
-    className="bg-surface-container-lowest p-8 rounded-[2rem] border border-on-surface/[0.03] shadow-premium relative overflow-hidden group"
+    className="bg-white p-8 rounded-[2rem] border border-gray-200 shadow-premium relative overflow-hidden group"
   >
-    <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/[0.02] rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+    <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-600/[0.02] rounded-full group-hover:scale-150 transition-transform duration-700"></div>
     <div className="flex justify-between items-start mb-6 relative z-10">
-      <div className="w-12 h-12 bg-primary/5 text-primary rounded-xl flex items-center justify-center">
+      <div className="w-12 h-12 bg-blue-600/5 text-blue-600 rounded-xl flex items-center justify-center">
         <Icon size={24} />
       </div>
       {change && (
@@ -24,8 +24,8 @@ const KPICard = ({ title, value, change, icon: Icon, delay }) => (
       )}
     </div>
     <div className="relative z-10">
-      <p className="text-[9px] text-on-surface/40 font-black uppercase tracking-widest mb-2">{title}</p>
-      <h3 className="text-4xl font-display font-black text-on-surface tracking-tighter italic">{value}</h3>
+      <p className="text-[9px] text-gray-500 font-black uppercase tracking-widest mb-2">{title}</p>
+      <h3 className="text-4xl font-display font-black text-gray-900 tracking-tighter italic">{value}</h3>
     </div>
   </motion.div>
 );
@@ -41,13 +41,13 @@ const AdminDashboard = () => {
   
   if (user && user.role !== 'ADMIN') {
      return (
-       <div className="min-h-screen flex items-center justify-center bg-surface-container-low p-6">
-         <div className="bg-surface-container-lowest p-12 rounded-[2.5rem] shadow-long-fall text-center max-w-md border border-on-surface/[0.03]">
+       <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+         <div className="bg-white p-12 rounded-[2.5rem] shadow-long-fall text-center max-w-md border border-gray-200">
            <div className="w-16 h-16 bg-error/10 text-error rounded-full flex items-center justify-center mx-auto mb-6">
              <Settings size={28} />
            </div>
            <h2 className="text-2xl font-display font-black uppercase italic tracking-tighter mb-4">Accès Refusé</h2>
-           <p className="text-on-surface/50 text-sm font-body leading-relaxed mb-8">
+           <p className="text-gray-500 text-sm font-body leading-relaxed mb-8">
              Votre niveau d'accréditation ne vous permet pas d'accéder au centre de commandement NOVA+.
            </p>
            <button onClick={() => window.location.href='/dashboard'} className="btn-primary w-full py-4 text-[10px]">
@@ -67,17 +67,17 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-surface-container-low font-display flex">
+    <div className="min-h-screen bg-gray-50 font-display flex">
       {/* Admin Sidebar */}
-      <aside className="w-72 bg-surface-lowest border-r border-on-surface/[0.03] flex flex-col fixed inset-y-0 z-20 shadow-premium">
-        <div className="p-8 border-b border-on-surface/[0.03]">
+      <aside className="w-72 bg-white border-r border-gray-200 flex flex-col fixed inset-y-0 z-20 shadow-premium">
+        <div className="p-8 border-b border-gray-200">
           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+             <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                 <img src={LOGO_URL} alt="NOVA+" className="w-6 h-6 object-contain brightness-0 invert" />
              </div>
              <div>
-                <span className="font-display font-black text-xl tracking-tighter uppercase italic block leading-none">NOVA<span className="text-primary not-italic">+</span></span>
-                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-primary">Admin Control</span>
+                <span className="font-display font-black text-xl tracking-tighter uppercase italic block leading-none">NOVA<span className="text-blue-600 not-italic">+</span></span>
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-blue-600">Admin Control</span>
              </div>
           </div>
         </div>
@@ -91,27 +91,27 @@ const AdminDashboard = () => {
                 onClick={() => setActiveMenu(item.id)}
                 className={`flex items-center gap-4 w-full p-4 rounded-2xl transition-all duration-300 group relative overflow-hidden ${
                   activeMenu === item.id 
-                  ? 'bg-on-surface text-surface shadow-lg' 
-                  : 'text-on-surface/40 hover:bg-surface-container-low hover:text-on-surface'
+                  ? 'bg-gray-900 text-white shadow-lg' 
+                  : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
-                {activeMenu === item.id && <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>}
-                <Icon size={18} className={activeMenu === item.id ? 'text-primary' : 'group-hover:text-primary transition-colors'} />
+                {activeMenu === item.id && <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600"></div>}
+                <Icon size={18} className={activeMenu === item.id ? 'text-blue-600' : 'group-hover:text-blue-600 transition-colors'} />
                 <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
               </button>
             )
           })}
         </nav>
 
-        <div className="p-6 border-t border-on-surface/[0.03] bg-surface-container-lowest">
+        <div className="p-6 border-t border-gray-200 bg-white">
            <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                 <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-black text-xs">
+                 <div className="w-10 h-10 rounded-full bg-blue-600/10 text-blue-600 flex items-center justify-center font-black text-xs">
                    AD
                  </div>
                  <div>
                     <p className="text-[10px] font-black uppercase tracking-widest leading-none">ROOT</p>
-                    <p className="text-[8px] text-on-surface/40 uppercase tracking-widest mt-1">Super Admin</p>
+                    <p className="text-[8px] text-gray-500 uppercase tracking-widest mt-1">Super Admin</p>
                  </div>
               </div>
               <button onClick={() => { logout(); window.location.href='/login'; }} className="w-8 h-8 rounded-full bg-error/10 text-error flex items-center justify-center hover:bg-error/20 transition-colors">
@@ -125,16 +125,16 @@ const AdminDashboard = () => {
       <main className="flex-1 ml-72 p-10 flex flex-col min-h-screen">
         
         {/* Topbar */}
-        <header className="flex justify-between items-center mb-12 bg-surface-lowest p-6 rounded-[2rem] border border-on-surface/[0.03] shadow-sm">
+        <header className="flex justify-between items-center mb-12 bg-white p-6 rounded-[2rem] border border-gray-200 shadow-sm">
            <h2 className="text-2xl font-display font-black uppercase italic tracking-tighter">
               {navItems.find(i => i.id === activeMenu)?.label}
            </h2>
            <div className="flex items-center gap-6">
               <div className="relative group">
-                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={16} />
-                 <input type="text" placeholder="Recherche globale..." className="pl-12 pr-4 py-3 bg-surface-container-low rounded-full text-xs font-bold w-64 outline-none focus:ring-2 ring-primary/20 transition-all border border-transparent" />
+                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                 <input type="text" placeholder="Recherche globale..." className="pl-12 pr-4 py-3 bg-gray-50 rounded-full text-xs font-bold w-64 outline-none focus:ring-2 ring-blue-600/20 transition-all border border-transparent" />
               </div>
-              <button className="relative w-10 h-10 bg-surface-container-low rounded-full flex items-center justify-center text-on-surface/40 hover:text-primary transition-colors">
+              <button className="relative w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-gray-500 hover:text-blue-600 transition-colors">
                  <Bell size={18} />
                  <span className="absolute top-2 right-2 w-2 h-2 bg-error rounded-full animate-pulse shadow-[0_0_8px_rgba(244,67,54,0.6)]"></span>
               </button>
@@ -160,15 +160,15 @@ const AdminDashboard = () => {
 
             <div className="grid lg:grid-cols-3 gap-8">
                {/* Recent Users Table */}
-               <div className="lg:col-span-2 bg-surface-container-lowest rounded-[2.5rem] border border-on-surface/[0.03] p-8 shadow-long-fall">
+               <div className="lg:col-span-2 bg-white rounded-[2.5rem] border border-gray-200 p-8 shadow-long-fall">
                  <div className="flex justify-between items-center mb-8">
                     <h3 className="text-xl font-display font-black uppercase italic tracking-tighter">Déploiements Récents</h3>
-                    <button className="text-[9px] font-black uppercase tracking-widest text-primary hover:underline">Voir tout <ArrowUpRight size={12} className="inline"/></button>
+                    <button className="text-[9px] font-black uppercase tracking-widest text-blue-600 hover:underline">Voir tout <ArrowUpRight size={12} className="inline"/></button>
                  </div>
                  <div className="overflow-x-auto">
                     <table className="w-full text-left">
                       <thead>
-                        <tr className="border-b border-on-surface/[0.03] text-[9px] font-black uppercase tracking-widest text-on-surface/30">
+                        <tr className="border-b border-gray-200 text-[9px] font-black uppercase tracking-widest text-gray-400">
                           <th className="pb-4 pt-2">ID Client</th>
                           <th className="pb-4 pt-2">Localisation</th>
                           <th className="pb-4 pt-2">Plan</th>
@@ -181,13 +181,13 @@ const AdminDashboard = () => {
                           { id: '#CLI-893', loc: 'Kikula', plan: 'Essentiel', status: 'En attente', ok: false },
                           { id: '#CLI-894', loc: 'Panda', plan: 'Famille', status: 'Actif', ok: true },
                         ].map((row, i) => (
-                           <tr key={i} className="hover:bg-surface-container-low transition-colors group">
+                           <tr key={i} className="hover:bg-gray-50 transition-colors group">
                               <td className="py-4">
                                  <span className="font-display italic text-base">{row.id}</span>
                               </td>
-                              <td className="py-4 text-on-surface/60">{row.loc}</td>
+                              <td className="py-4 text-gray-600">{row.loc}</td>
                               <td className="py-4">
-                                 <span className="px-3 py-1 bg-primary/5 text-primary rounded-full text-[10px] font-black uppercase tracking-widest">{row.plan}</span>
+                                 <span className="px-3 py-1 bg-blue-600/5 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest">{row.plan}</span>
                               </td>
                               <td className="py-4 text-right">
                                  <span className={`text-[10px] font-black uppercase tracking-widest ${row.ok ? 'text-success' : 'text-error'}`}>{row.status}</span>
@@ -200,7 +200,7 @@ const AdminDashboard = () => {
                </div>
                
                {/* Satellite Status */}
-               <div className="bg-primary p-8 rounded-[2.5rem] shadow-2xl shadow-primary/20 text-white relative overflow-hidden">
+               <div className="bg-blue-600 p-8 rounded-[2.5rem] shadow-2xl shadow-blue-600/20 text-white relative overflow-hidden">
                  <div className="absolute inset-0 bg-noise opacity-10 mix-blend-overlay"></div>
                  <Radio size={120} className="absolute -bottom-10 -right-10 opacity-10" />
                  
@@ -244,14 +244,14 @@ const AdminDashboard = () => {
             key="wip"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex-1 bg-surface-container-lowest rounded-[2.5rem] border border-on-surface/[0.03] flex flex-col items-center justify-center text-center p-12"
+            className="flex-1 bg-white rounded-[2.5rem] border border-gray-200 flex flex-col items-center justify-center text-center p-12"
           >
-             <div className="w-24 h-24 bg-primary/5 text-primary/40 rounded-full flex items-center justify-center mb-6">
+             <div className="w-24 h-24 bg-blue-600/5 text-blue-600/40 rounded-full flex items-center justify-center mb-6">
                 <Settings size={40} className="animate-spin-slow" />
              </div>
              <h3 className="text-3xl font-display font-black uppercase italic tracking-tighter mb-4">Initialisation en cours</h3>
-             <p className="text-on-surface/40 text-sm font-body max-w-md leading-relaxed">
-               Le module de gestion détaillé pour <span className="font-black text-on-surface/80">"{navItems.find(i => i.id === activeMenu)?.label}"</span> est en cours de déploiement sécurisé.
+             <p className="text-gray-500 text-sm font-body max-w-md leading-relaxed">
+               Le module de gestion détaillé pour <span className="font-black text-gray-600">"{navItems.find(i => i.id === activeMenu)?.label}"</span> est en cours de déploiement sécurisé.
              </p>
           </motion.div>
         )}

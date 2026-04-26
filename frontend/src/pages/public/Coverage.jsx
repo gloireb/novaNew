@@ -49,29 +49,29 @@ const Coverage = () => {
   };
 
   return (
-    <div className="bg-surface-container-low min-h-screen pb-40">
+    <div className="bg-gray-50 min-h-screen pb-40">
       {/* Header - Atmospheric mastery */}
       <section className="relative pt-48 pb-32 px-6 text-center overflow-hidden">
         <div className="max-w-4xl mx-auto space-y-8 relative z-10">
            <motion.h4 
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
-             className="text-[10px] font-black uppercase tracking-[0.6em] text-primary"
+             className="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600"
            >
              Vérification Orbitale
            </motion.h4>
            <motion.h1 
              initial={{ opacity: 0, y: 30 }}
              animate={{ opacity: 1, y: 0 }}
-             className="text-6xl md:text-[7rem] font-display font-black text-on-surface leading-[0.85] tracking-tighter uppercase italic"
+             className="text-6xl md:text-[7rem] font-display font-black text-gray-900 leading-[0.85] tracking-tighter uppercase italic"
            >
-             Couverture <br /> <span className="text-primary not-italic">Sans Limites.</span>
+             Couverture <br /> <span className="text-blue-600 not-italic">Sans Limites.</span>
            </motion.h1>
-           <p className="text-on-surface/40 text-lg md:text-xl font-body italic max-w-xl mx-auto leading-relaxed">
+           <p className="text-gray-500 text-lg md:text-xl font-body italic max-w-xl mx-auto leading-relaxed">
              "Où que vous soyez dans le Katanga, nous apportons l'orbite à votre porte. Vérifiez votre position en un clic."
            </p>
         </div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] -z-0"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[120px] -z-0"></div>
       </section>
 
       {/* Main Tool Container */}
@@ -80,25 +80,25 @@ const Coverage = () => {
           
           {/* Eligibility Form & Results */}
           <div className="lg:col-span-12">
-            <div className="bg-surface-container-lowest rounded-[2.5rem] p-4 md:p-12 shadow-long-fall border border-on-surface/[0.03]">
+            <div className="bg-white rounded-[2.5rem] p-4 md:p-12 shadow-long-fall border border-gray-200">
               <div className="grid lg:grid-cols-2 gap-12">
                 
                 {/* Left Side: Input & Info */}
                 <div className="space-y-12">
                   <div className="space-y-6">
-                    <h3 className="text-2xl font-display font-black uppercase italic tracking-tighter text-on-surface">Testez votre signal</h3>
-                    <p className="text-on-surface/50 text-sm leading-relaxed">
+                    <h3 className="text-2xl font-display font-black uppercase italic tracking-tighter text-gray-900">Testez votre signal</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed">
                       Entrez votre quartier ou vos coordonnées pour analyser la puissance du flux satellite disponible dans votre zone.
                     </p>
                   </div>
 
                   <form onSubmit={handleVerify} className="space-y-6">
                     <div className="relative group">
-                      <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-primary/40 group-focus-within:text-primary transition-colors" size={20} />
+                      <MapPin className="absolute left-6 top-1/2 -translate-y-1/2 text-blue-600/40 group-focus-within:text-blue-600 transition-colors" size={20} />
                       <input 
                         type="text" 
                         placeholder="Quartier, Avenue ou Zone à Likasi..." 
-                        className="w-full pl-16 pr-6 py-6 bg-surface-container-high rounded-2xl outline-none font-bold text-on-surface placeholder:text-on-surface/20 border-2 border-transparent focus:border-primary/20 transition-all"
+                        className="w-full pl-16 pr-6 py-6 bg-gray-100 rounded-2xl outline-none font-bold text-gray-900 placeholder:text-gray-400 border-2 border-transparent focus:border-blue-600/20 transition-all"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                       />
@@ -106,7 +106,7 @@ const Coverage = () => {
                     <button 
                       type="submit"
                       disabled={loading || !address}
-                      className="w-full flex items-center justify-center gap-3 bg-on-surface text-surface py-6 rounded-2xl font-display font-black text-xs uppercase tracking-[0.4em] hover:opacity-95 transition-all active:scale-95 disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-3 bg-gray-900 text-white py-6 rounded-2xl font-display font-black text-xs uppercase tracking-[0.4em] hover:opacity-95 transition-all active:scale-95 disabled:opacity-50"
                     >
                       {loading ? (
                         <>
@@ -128,7 +128,7 @@ const Coverage = () => {
                       <motion.div 
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="p-8 rounded-3xl bg-primary text-white space-y-8 shadow-2xl shadow-primary/20"
+                        className="p-8 rounded-3xl bg-blue-600 text-white space-y-8 shadow-2xl shadow-blue-600/20"
                       >
                          <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
@@ -151,7 +151,7 @@ const Coverage = () => {
                             </div>
                          </div>
 
-                         <Link to="/offres" className="flex items-center justify-center gap-3 w-full py-5 bg-white text-primary rounded-xl font-display font-black text-[10px] uppercase tracking-[0.3em] hover:scale-[1.02] transition-all">
+                         <Link to="/offres" className="flex items-center justify-center gap-3 w-full py-5 bg-white text-blue-600 rounded-xl font-display font-black text-[10px] uppercase tracking-[0.3em] hover:scale-[1.02] transition-all">
                             Voir les forfaits <ArrowRight size={14} />
                          </Link>
                       </motion.div>
@@ -159,8 +159,8 @@ const Coverage = () => {
                   </AnimatePresence>
 
                   {!checkResult && !loading && (
-                    <div className="p-8 rounded-3xl border border-dashed border-on-surface/10 flex flex-col items-center gap-6 text-center opacity-40 grayscale">
-                       <Globe size={40} className="text-primary/40" />
+                    <div className="p-8 rounded-3xl border border-dashed border-gray-200 flex flex-col items-center gap-6 text-center opacity-40 grayscale">
+                       <Globe size={40} className="text-blue-600/40" />
                        <p className="text-[10px] font-black uppercase tracking-widest leading-loose">
                          L'IA de géolocalisation attend votre saisie pour analyser la constellation de satellites disponible.
                        </p>
@@ -169,7 +169,7 @@ const Coverage = () => {
                 </div>
 
                 {/* Right Side: Map */}
-                <div className="relative group rounded-3xl overflow-hidden border border-on-surface/[0.03] shadow-inner h-[500px] lg:h-full min-h-[400px]">
+                <div className="relative group rounded-3xl overflow-hidden border border-gray-200 shadow-inner h-[500px] lg:h-full min-h-[400px]">
                    <MapContainer 
                      center={LIKASI_COORDS} 
                      zoom={13} 
@@ -183,10 +183,10 @@ const Coverage = () => {
                   </MapContainer>
                   
                   {/* Floating Indicator */}
-                  <div className="absolute top-6 right-6 z-20 bg-surface-lowest/80 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-on-surface/5">
+                  <div className="absolute top-6 right-6 z-20 bg-white/80 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-200">
                     <div className="flex items-center gap-3">
-                       <div className="w-2 h-2 rounded-full bg-primary animate-signal"></div>
-                       <span className="text-[10px] font-black uppercase tracking-widest text-on-surface">Signal Optimal</span>
+                       <div className="w-2 h-2 rounded-full bg-blue-600 animate-signal"></div>
+                       <span className="text-[10px] font-black uppercase tracking-widest text-gray-900">Signal Optimal</span>
                     </div>
                   </div>
                 </div>
@@ -196,10 +196,10 @@ const Coverage = () => {
           </div>
           
           {/* Network Health Cards */}
-          <div className="lg:col-span-4 bg-surface-lowest p-8 rounded-[2rem] border border-on-surface/[0.03] shadow-premium">
+          <div className="lg:col-span-4 bg-white p-8 rounded-[2rem] border border-gray-200 shadow-premium">
              <div className="flex items-center gap-4 mb-8">
-                <Activity className="text-primary" size={24} />
-                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-on-surface">Santé du Réseau</h5>
+                <Activity className="text-blue-600" size={24} />
+                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-900">Santé du Réseau</h5>
              </div>
              <div className="space-y-6">
                 <div className="space-y-2">
@@ -207,8 +207,8 @@ const Coverage = () => {
                       <span>Charge Satellite</span>
                       <span>42%</span>
                    </div>
-                   <div className="h-1 w-full bg-on-surface/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-primary w-[42%]"></div>
+                   <div className="h-1 w-full bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-blue-600 w-[42%]"></div>
                    </div>
                 </div>
                 <div className="space-y-2">
@@ -216,8 +216,8 @@ const Coverage = () => {
                       <span>Uptime Mensuel</span>
                       <span>99.98%</span>
                    </div>
-                   <div className="h-1 w-full bg-on-surface/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-primary w-[99%]"></div>
+                   <div className="h-1 w-full bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-blue-600 w-[99%]"></div>
                    </div>
                 </div>
              </div>
@@ -234,7 +234,7 @@ const Coverage = () => {
                    <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mt-2">LEO Konstellation 4 - Actif</p>
                 </div>
              </div>
-             <Link to="/support" className="relative z-10 px-10 py-5 bg-white text-primary rounded-xl font-display font-black uppercase tracking-widest text-[9px] hover:scale-105 transition-all">
+             <Link to="/support" className="relative z-10 px-10 py-5 bg-white text-blue-600 rounded-xl font-display font-black uppercase tracking-widest text-[9px] hover:scale-105 transition-all">
                 Signaler un problème
              </Link>
           </div>
