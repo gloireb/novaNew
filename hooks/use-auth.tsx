@@ -28,7 +28,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const isAdmin = profile?.role === "admin" || user?.email === "kulewakangitsirobert@gmail.com";
+  const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "kulewakangitsirobert@gmail.com";
+  const isAdmin = profile?.role === "admin" || user?.email === adminEmail;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
