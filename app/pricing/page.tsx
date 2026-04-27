@@ -95,7 +95,7 @@ export default function PricingPage() {
 
   const getWhatsAppLink = (planName: string, price: number) => {
     const text = `Bonjour NOVA+, je souhaite souscrire au forfait ${planName} (${price}$ pour 1 ${cycle === 'day' ? 'jour' : cycle === 'week' ? 'semaine' : 'mois'}).`;
-    return `https://wa.me/243000000000?text=${encodeURIComponent(text)}`;
+    return `https://wa.me/243970550517?text=${encodeURIComponent(text)}`;
   };
 
   return (
@@ -148,11 +148,10 @@ export default function PricingPage() {
               <button
                 key={c}
                 onClick={() => setCycle(c)}
-                className={`relative px-6 py-2.5 rounded-xl text-sm font-bold transition-all z-10 ${
-                  cycle === c
+                className={`relative px-6 py-2.5 rounded-xl text-sm font-bold transition-all z-10 ${cycle === c
                     ? "text-white"
                     : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
-                }`}
+                  }`}
               >
                 {cycle === c && (
                   <motion.div
@@ -175,11 +174,10 @@ export default function PricingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * idx }}
-              className={`relative flex flex-col bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border transition-all duration-500 hover:shadow-2xl hover:shadow-blue-900/10 ${
-                plan.recommended
+              className={`relative flex flex-col bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border transition-all duration-500 hover:shadow-2xl hover:shadow-blue-900/10 ${plan.recommended
                   ? "border-blue-500 dark:border-blue-400 ring-4 ring-blue-500/5 lg:scale-105 z-10"
                   : "border-slate-100 dark:border-slate-800"
-              }`}
+                }`}
             >
               {plan.recommended && (
                 <div className="absolute top-0 right-10 -translate-y-1/2 bg-blue-600 dark:bg-blue-500 text-white px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-lg">
@@ -238,17 +236,18 @@ export default function PricingPage() {
               <div className="mt-auto space-y-3">
                 <Link
                   href="/payment"
-                  className={`flex w-full justify-center items-center py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all active:scale-[0.98] ${
-                    plan.recommended
+                  className={`flex w-full justify-center items-center py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all active:scale-[0.98] ${plan.recommended
                       ? "bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-600/30"
                       : "bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100"
-                  }`}
+                    }`}
                 >
                   <CreditCard className="w-4 h-4 mr-2" />
                   Payer maintenant
                 </Link>
                 <Link
                   href={getWhatsAppLink(plan.name, plan.prices[cycle])}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex w-full justify-center items-center py-3 rounded-2xl font-bold text-sm text-emerald-600 dark:text-emerald-400 border-2 border-emerald-500/20 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all border-dashed"
                 >
                   <MessageCircle className="w-4 h-4 mr-2" />
@@ -270,7 +269,7 @@ export default function PricingPage() {
               </p>
             </div>
             <div className="relative z-10">
-              <Link href="https://wa.me/243000000000" className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-all">
+              <Link href="https://wa.me/243970550517" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-all">
                 Contacter Sales
               </Link>
             </div>
@@ -279,27 +278,27 @@ export default function PricingPage() {
 
         {/* Trust features */}
         <div className="mt-24 grid md:grid-cols-3 gap-12 max-w-5xl mx-auto text-center">
-            <div className="space-y-4">
-                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-full shadow-lg mx-auto flex items-center justify-center text-emerald-500 border border-slate-100 dark:border-slate-800">
-                    <ShieldCheck className="w-6 h-6" />
-                </div>
-                <h4 className="font-bold text-slate-900 dark:text-white">Sécurisé</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Paiements locaux via Mobile Money ou Cash.</p>
+          <div className="space-y-4">
+            <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-full shadow-lg mx-auto flex items-center justify-center text-emerald-500 border border-slate-100 dark:border-slate-800">
+              <ShieldCheck className="w-6 h-6" />
             </div>
-            <div className="space-y-4">
-                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-full shadow-lg mx-auto flex items-center justify-center text-blue-500 border border-slate-100 dark:border-slate-800">
-                    <Zap className="w-6 h-6" />
-                </div>
-                <h4 className="font-bold text-slate-900 dark:text-white">Instantané</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Activation de votre compte dès confirmation.</p>
+            <h4 className="font-bold text-slate-900 dark:text-white">Sécurisé</h4>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Paiements locaux via Mobile Money ou Cash.</p>
+          </div>
+          <div className="space-y-4">
+            <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-full shadow-lg mx-auto flex items-center justify-center text-blue-500 border border-slate-100 dark:border-slate-800">
+              <Zap className="w-6 h-6" />
             </div>
-            <div className="space-y-4">
-                <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-full shadow-lg mx-auto flex items-center justify-center text-purple-500 border border-slate-100 dark:border-slate-800">
-                    <MessageCircle className="w-6 h-6" />
-                </div>
-                <h4 className="font-bold text-slate-900 dark:text-white">Assistance</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400">On vous aide pour toute la configuration.</p>
+            <h4 className="font-bold text-slate-900 dark:text-white">Instantané</h4>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Activation de votre compte dès confirmation.</p>
+          </div>
+          <div className="space-y-4">
+            <div className="w-12 h-12 bg-white dark:bg-slate-900 rounded-full shadow-lg mx-auto flex items-center justify-center text-purple-500 border border-slate-100 dark:border-slate-800">
+              <MessageCircle className="w-6 h-6" />
             </div>
+            <h4 className="font-bold text-slate-900 dark:text-white">Assistance</h4>
+            <p className="text-sm text-slate-500 dark:text-slate-400">On vous aide pour toute la configuration.</p>
+          </div>
         </div>
       </main>
 
