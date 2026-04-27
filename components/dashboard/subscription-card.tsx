@@ -14,7 +14,9 @@ export default function SubscriptionCard({ planName, price, cycle }: Subscriptio
 
   return (
     <div className={`rounded-[2.5rem] p-10 text-white relative overflow-hidden group transition-all ${
-      hasSubscription ? "bg-slate-900 dark:bg-slate-800/50" : "bg-blue-600 shadow-2xl shadow-blue-600/20"
+      hasSubscription 
+        ? "bg-slate-900 dark:bg-slate-800 ring-1 ring-white/5" 
+        : "bg-blue-600 shadow-2xl shadow-blue-600/20"
     }`}>
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-blue-600/20 blur-[80px] rounded-full transition-transform group-hover:scale-110 duration-700"></div>
       
