@@ -1,13 +1,13 @@
 "use client";
 
-import { MessageCircle, MapPin, Share2, HelpCircle } from "lucide-react";
+import { MessageCircle, MapPin, Share2, Ticket } from "lucide-react";
 import Link from "next/link";
 
 const actions = [
   { icon: <MessageCircle className="w-5 h-5" />, label: "Support WhatsApp", desc: "Besoin d'aide immédiate ?", href: "https://wa.me/243000000000", color: "emerald" },
+  { icon: <Ticket className="w-5 h-5" />, label: "Tickets Support", desc: "Suivez vos demandes", href: "/support/tickets", color: "indigo" },
   { icon: <MapPin className="w-5 h-5" />, label: "Demander Installation", desc: "Une nouvelle ligne à Likasi ?", href: "/installation/request", color: "blue" },
   { icon: <Share2 className="w-5 h-5" />, label: "Parrainer un ami", desc: "Gagnez 10% de réduction", href: "#", color: "purple" },
-  { icon: <HelpCircle className="w-5 h-5" />, label: "Centre d'aide", desc: "Consultez la FAQ", href: "#", color: "slate" },
 ];
 
 export default function QuickActions() {

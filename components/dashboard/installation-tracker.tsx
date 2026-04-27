@@ -18,6 +18,8 @@ interface Installation {
   createdAt: any;
 }
 
+import { handleFirestoreError, OperationType } from "@/lib/firebase-utils";
+
 export default function InstallationTracker() {
   const { user } = useAuth();
   const [installations, setInstallations] = useState<Installation[]>([]);
@@ -36,7 +38,7 @@ export default function InstallationTracker() {
       const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Installation[];
       setInstallations(docs);
       setLoading(false);
-    });
+    }, (error) => handleFirestoreError(error, OperationType.LIST, "installations"));
 
     return () => unsubscribe();
   }, [user]);

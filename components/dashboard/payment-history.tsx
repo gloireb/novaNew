@@ -14,6 +14,8 @@ interface Transaction {
   createdAt: any;
 }
 
+import { handleFirestoreError, OperationType } from "@/lib/firebase-utils";
+
 export default function PaymentHistory() {
   const { user } = useAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -33,10 +35,7 @@ export default function PaymentHistory() {
       const docs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Transaction[];
       setTransactions(docs);
       setLoading(false);
-    }, (error) => {
-        console.error("Payment history error:", error);
-        setLoading(false);
-    });
+    }, (error) => handleFirestoreError(error, OperationType.LIST, "payments"));
 
     return () => unsubscribe();
   }, [user]);

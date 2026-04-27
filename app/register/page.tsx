@@ -66,6 +66,7 @@ export default function RegisterPage() {
         displayName: data.name,
         phoneNumber: data.phone,
         email: data.email || null,
+        role: "user",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });

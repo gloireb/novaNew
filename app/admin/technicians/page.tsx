@@ -29,6 +29,8 @@ interface Technician {
   createdAt: any;
 }
 
+import { handleFirestoreError, OperationType } from "@/lib/firebase-utils";
+
 export default function AdminTechniciansPage() {
   const [technicians, setTechnicians] = useState<Technician[]>([]);
   const [loading, setLoading] = useState(true);
@@ -45,7 +47,7 @@ export default function AdminTechniciansPage() {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setTechnicians(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Technician[]);
       setLoading(false);
-    });
+    }, (error) => handleFirestoreError(error, OperationType.LIST, "technicians"));
     return () => unsubscribe();
   }, []);
 
@@ -65,7 +67,7 @@ export default function AdminTechniciansPage() {
       setShowAddModal(false);
       setName(""); setPhone("");
     } catch (error) {
-      console.error("Tech creation error:", error);
+      handleFirestoreError(error, OperationType.WRITE, `technicians`);
     } finally {
       setIsSubmitting(false);
     }
@@ -73,7 +75,11 @@ export default function AdminTechniciansPage() {
 
   const deleteTech = async (id: string) => {
     if (confirm("Voulez-vous vraiment supprimer ce technicien ?")) {
-      await deleteDoc(doc(db, "technicians", id));
+      try {
+        await deleteDoc(doc(db, "technicians", id));
+      } catch (error) {
+        handleFirestoreError(error, OperationType.DELETE, `technicians/${id}`);
+      }
     }
   };
 
@@ -84,9 +90,13 @@ export default function AdminTechniciansPage() {
       offline: "available"
     } as const;
     
-    await updateDoc(doc(db, "technicians", tech.id), {
-      status: nextStatusMap[tech.status]
-    });
+    try {
+      await updateDoc(doc(db, "technicians", tech.id), {
+        status: nextStatusMap[tech.status]
+      });
+    } catch (error) {
+      handleFirestoreError(error, OperationType.UPDATE, `technicians/${tech.id}`);
+    }
   };
 
   return (

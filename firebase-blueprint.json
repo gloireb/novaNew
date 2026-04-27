@@ -9,6 +9,7 @@
         "displayName": { "type": "string" },
         "phoneNumber": { "type": "string" },
         "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
         "subscriptionPlan": { "type": "string" },
         "subscriptionStatus": { "type": "string", "enum": ["active", "expired", "none"] },
         "createdAt": { "type": "string", "format": "date-time" },
@@ -78,6 +79,22 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["id", "name", "status"]
+    },
+    "Ticket": {
+      "title": "Support Ticket",
+      "description": "Customer support requests.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "subject": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string", "enum": ["internet_lent", "pas_de_connexion", "paiement", "installation", "autre"] },
+        "status": { "type": "string", "enum": ["open", "in_progress", "resolved"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "subject", "description", "status"]
     }
   },
   "firestore": {
@@ -100,6 +117,10 @@
     "/technicians/{technicianId}": {
       "schema": "Technician",
       "description": "Field technicians database."
+    },
+    "/tickets/{ticketId}": {
+      "schema": "Ticket",
+      "description": "Support tickets collection."
     }
   }
 }

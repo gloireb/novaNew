@@ -42,6 +42,8 @@ interface Technician {
   status: "available" | "busy" | "offline";
 }
 
+import { handleFirestoreError, OperationType } from "@/lib/firebase-utils";
+
 export default function AdminInstallationsPage() {
   const [installations, setInstallations] = useState<Installation[]>([]);
   const [technicians, setTechnicians] = useState<Technician[]>([]);
@@ -54,23 +56,24 @@ export default function AdminInstallationsPage() {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setInstallations(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Installation[]);
       setLoading(false);
-    });
+    }, (error) => handleFirestoreError(error, OperationType.LIST, "installations"));
 
-    // Mock tech list if empty
     const tq = query(collection(db, "technicians"));
     const unsubTech = onSnapshot(tq, (snapshot) => {
       if (snapshot.empty) {
-        // Seed some technicians
         const initialTechs = [
           { id: "tech1", name: "Jean Kabamba", phone: "0812345678", status: "available" },
           { id: "tech2", name: "Marc Mwamba", phone: "0823456789", status: "busy" },
           { id: "tech3", name: "Sarah Lualaba", phone: "0854567890", status: "available" },
         ];
-        initialTechs.forEach(t => setDoc(doc(db, "technicians", t.id), { ...t, createdAt: serverTimestamp() }));
+        initialTechs.forEach(t => {
+          setDoc(doc(db, "technicians", t.id), { ...t, createdAt: serverTimestamp() })
+            .catch(err => handleFirestoreError(err, OperationType.WRITE, `technicians/${t.id}`));
+        });
       } else {
         setTechnicians(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Technician[]);
       }
-    });
+    }, (error) => handleFirestoreError(error, OperationType.LIST, "technicians"));
 
     return () => { unsubscribe(); unsubTech(); };
   }, []);
@@ -83,13 +86,13 @@ export default function AdminInstallationsPage() {
         technicianId: tech.id,
         technicianName: tech.name,
         status: "scheduled",
-        scheduledDate: serverTimestamp(), // In real app, would be a picked date
+        scheduledDate: serverTimestamp(),
         updatedAt: serverTimestamp()
       });
       setShowAssignModal(false);
       setSelectedInst(null);
     } catch (error) {
-      console.error("Assign error:", error);
+      handleFirestoreError(error, OperationType.UPDATE, `installations/${selectedInst.id}`);
     }
   };
 
@@ -100,7 +103,7 @@ export default function AdminInstallationsPage() {
         updatedAt: serverTimestamp()
       });
     } catch (error) {
-      console.error("Status update error:", error);
+      handleFirestoreError(error, OperationType.UPDATE, `installations/${id}`);
     }
   };
 
