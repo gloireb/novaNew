@@ -4,7 +4,7 @@ import { MessageCircle, MapPin, Share2, Ticket } from "lucide-react";
 import Link from "next/link";
 
 const actions = [
-  { icon: <MessageCircle className="w-5 h-5" />, label: "Support WhatsApp", desc: "Besoin d'aide immédiate ?", href: "https://wa.me/243000000000", color: "emerald" },
+  { icon: <MessageCircle className="w-5 h-5" />, label: "Support WhatsApp", desc: "Besoin d'aide immédiate ?", href: "https://wa.me/243970550517", color: "emerald" },
   { icon: <Ticket className="w-5 h-5" />, label: "Tickets Support", desc: "Suivez vos demandes", href: "/support/tickets", color: "indigo" },
   { icon: <MapPin className="w-5 h-5" />, label: "Demander Installation", desc: "Une nouvelle ligne à Likasi ?", href: "/installation/request", color: "blue" },
   { icon: <Share2 className="w-5 h-5" />, label: "Parrainer un ami", desc: "Gagnez 10% de réduction", href: "#", color: "purple" },
@@ -16,8 +16,8 @@ export default function QuickActions() {
       <h3 className="font-display font-black text-xl text-slate-900 dark:text-white mb-8 uppercase tracking-tight">Actions Rapides</h3>
       <div className="grid sm:grid-cols-2 gap-4">
         {actions.map((action, i) => (
-          <Link 
-            key={i} 
+          <Link
+            key={i}
             href={action.href}
             className="group p-5 rounded-3xl bg-slate-50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-transparent hover:border-slate-100 dark:hover:border-slate-700 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none transition-all"
           >
