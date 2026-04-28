@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* =====================
+   LIGHT MODE (par défaut)
+   ===================== */
+:root {
+  --color-bg: #f8fafc;          /* slate-50 */
+  --color-bg-card: #ffffff;     /* white */
+  --color-bg-subtle: #f1f5f9;   /* slate-100 */
+  --color-bg-input: #f1f5f9;    /* slate-100 */
+
+  --color-border: #e2e8f0;      /* slate-200 */
+  --color-border-subtle: #f1f5f9; /* slate-100 */
+
+  --color-text-primary: #0f172a; /* slate-900 */
+  --color-text-secondary: #64748b; /* slate-500 */
+  --color-text-muted: #94a3b8;   /* slate-400 */
+
+  --color-accent: #2563eb;       /* blue-600 */
+  --color-accent-hover: #1d4ed8; /* blue-700 */
+  --color-accent-soft: #eff6ff;  /* blue-50 */
+}
+
+/* =====================
+   DARK MODE
+   ===================== */
+.dark {
+  --color-bg: #020617;          /* slate-950 */
+  --color-bg-card: #0f172a;     /* slate-900 */
+  --color-bg-subtle: #1e293b;   /* slate-800 */
+  --color-bg-input: #1e293b;    /* slate-800 */
+
+  --color-border: #334155;      /* slate-700 */
+  --color-border-subtle: #1e293b; /* slate-800 */
+
+  --color-text-primary: #f8fafc; /* slate-50 */
+  --color-text-secondary: #94a3b8; /* slate-400 */
+  --color-text-muted: #64748b;   /* slate-500 */
+
+  --color-accent: #3b82f6;       /* blue-500 */
+  --color-accent-hover: #60a5fa; /* blue-400 */
+  --color-accent-soft: #1e3a5f20; /* blue custom soft */
+}
+
+/* =====================
+   BASE STYLES
+   ===================== */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Inputs dark/light */
+input, textarea, select {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-input);
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}

@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isAdmin() { 
+      return isSignedIn() && 
+             request.auth.token.get('email_verified', false) == true && (
+               exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+               get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'user') == 'admin'
+             );
+    }
+
+    // --- Users ---
+    match /users/{userId} {
+      function isValidUser(data) {
+        return data.keys().hasAll(['uid', 'displayName']) && 
+               data.uid == request.auth.uid &&
+               data.displayName is string && data.displayName.size() <= 100 &&
+               (!('role' in data) || data.role == 'user'); 
+      }
+
+      allow get: if isSignedIn();
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && isValidUser(incoming()) && incoming().createdAt == request.time;
+      allow update: if (isOwner(userId) || isAdmin()) && (
+        // Action: Update Profile
+        (incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'phoneNumber', 'email', 'updatedAt'])) ||
+        // Action: Update Subscription
+        (incoming().diff(existing()).affectedKeys().hasOnly(['subscriptionPlan', 'subscriptionStatus', 'updatedAt'])) ||
+        // Action: Promote to Admin (Admin only)
+        (isAdmin() && incoming().diff(existing()).affectedKeys().hasOnly(['role', 'updatedAt']))
+      ) && incoming().updatedAt == request.time;
+    }
+
+    // --- Subscriptions ---
+    match /subscriptions/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create, update: if (isOwner(userId) || isAdmin()) && incoming().userId == userId;
+    }
+
+    // --- Payments ---
+    match /payments/{paymentId} {
+      allow read: if (isSignedIn() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow list: if (isSignedIn() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow create: if isSignedIn() && (incoming().userId == request.auth.uid || isAdmin()) && incoming().status == "completed";
+    }
+
+    // --- Installations ---
+    match /installations/{installationId} {
+      function isValidInstallation(data) {
+        return data.keys().hasAll(['userId', 'address', 'status', 'createdAt']) &&
+               data.address is string && data.address.size() <= 1000 &&
+               data.status in ['pending', 'scheduled', 'in_progress', 'installed', 'failed'];
+      }
+
+      allow read: if (isSignedIn() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow list: if (isSignedIn() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow create: if isSignedIn() && (incoming().userId == request.auth.uid || isAdmin()) && isValidInstallation(incoming());
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // --- Technicians ---
+    match /technicians/{technicianId} {
+      allow read, list: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // --- Tickets ---
+    match /tickets/{ticketId} {
+      function isValidTicket(data) {
+        return data.userId == request.auth.uid &&
+               data.subject is string && data.subject.size() <= 200 &&
+               data.description is string && data.description.size() <= 2000 &&
+               data.category in ['internet_lent', 'pas_de_connexion', 'paiement', 'installation', 'autre'] &&
+               data.status in ['open', 'in_progress', 'resolved'];
+      }
+
+      allow read: if (isSignedIn() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow list: if (isSignedIn() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow create: if isSignedIn() && isValidTicket(incoming()) && incoming().createdAt == request.time;
+      allow update: if isAdmin() || (isOwner(resource.data.userId) && incoming().diff(existing()).affectedKeys().hasOnly(['description', 'updatedAt']));
+    }
+  }
+}
